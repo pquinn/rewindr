@@ -6,6 +6,11 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= include_gon %>
+  
+  <%= stylesheet_link_tag "./app/assets/stylesheets/d3-bootstrap-plugins.min.css" %>
+  
+  <script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
+  <%= javascript_include_tag 'd3-bootstrap-plugins.js' %>
 </head>
 <body>
 

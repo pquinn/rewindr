@@ -7,7 +7,9 @@ class LastfmHelper
                :page  => options[:page],
                :limit => options[:limit] || 200
              )
-             
+            
+    tracks ||= []
+                 
     LastfmHelper.fix_duplicate_listens(tracks)
   end
   

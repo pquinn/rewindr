@@ -63,42 +63,20 @@ body {
     background-color: black;
 }
 
-#leftHover {
-    position: absolute;
-    width: 5%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0);
-    z-index: 1;
-}
-
-#rightHover {
-    position: absolute;
-    left: 95%;
-    width: 5%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0);
-    z-index: 1;
-}
-
 .scroll {
     position: absolute;    
-    top: 47.5%;
+    top: 95%;
     width: 50px;
     height: 50px;
-    background-color: #FFFFFF;
     z-index: 1;
 }
 
 #leftScroll {
-    left: 47.5%;
+    left: 2.5%;
 }
 
 #rightScroll {
-    right: 47.5%;
-}
-
-.scroll-hover {
-
+    right: 2.5%;
 }
 
 .tileText {
@@ -108,5 +86,15 @@ body {
 .canvas {
     z-index: -1;
 }
+
+.popover {
+    z-index: 4;
+}
+
+div .popover-content{
+    padding-top: 0px;
+}
+
+tile { }
 
 tile { }
