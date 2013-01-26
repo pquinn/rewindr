@@ -12,12 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.rdio
 //= require twitter/bootstrap
 //= require underscore
 //= require backbone
 //= require d3
 
 //= require rewindr
+//= require spinner_setup
+//= require rdio
 //= require album_wall
 
 //= require_tree ../templates
