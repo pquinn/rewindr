@@ -5,11 +5,8 @@ jQuery(function() {
   var tileSize =  width / xTiles;
 
   var offset = { "x": 0, "y": 0 };
-
   var index = 0;
-
   var canScroll = true;
-
   var data = gon.track_data;
 
   $(".scroll-hover").hover(
@@ -17,8 +14,18 @@ jQuery(function() {
       $(".scroll").attr("visibility", "visible");
     });
 
-  $("#leftScroll").click(function ()  { if (canScroll) { index--; DrawTiles(1); } });
-  $("#rightScroll").click(function () { if (canScroll) { index++; DrawTiles(-1); } });
+  $("#leftScroll").click(function ()  { 
+    if (canScroll) { 
+      index--; 
+      DrawTiles(1); 
+    } 
+  });
+  $("#rightScroll").click(function () { 
+    if (canScroll) { 
+      index++; 
+      DrawTiles(-1); 
+    }
+  });
 
   DrawTiles(0);
 
@@ -32,12 +39,12 @@ jQuery(function() {
   function DrawTiles(direction) {
       var dimensions = GetTiles();
 
-      var number_of_tiles_per_page = dimensions.x * dimensions.y;
+      var numberOfTilesPerPage = dimensions.x * dimensions.y;
       
-      var current_data_slice = data.slice(index * number_of_tiles_per_page, (index + 1) * number_of_tiles_per_page);
+      var currentDataSlice = data.slice(index * numberOfTilesPerPage, (index + 1) * numberOfTilesPerPage);
 
       var tiles = d3.select("svg").selectAll("image")
-          .data(current_data_slice, function(d) { return parseInt(d.date.uts); });
+          .data(currentDataSlice, function(d) { return parseInt(d.date.uts); });
       
       // avoids animation at start
       if (direction == 0) {
