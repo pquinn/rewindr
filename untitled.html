@@ -2,41 +2,203 @@
 <meta charset="utf-8">
 
 <style>
+
+body {
+    background-color: black;
+}
+
+#leftHover {
+    position: absolute;
+    width: 5%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0);
+    z-index: 1;
+}
+
+#rightHover {
+    position: absolute;
+    left: 95%;
+    width: 5%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0);
+    z-index: 1;
+}
+
+.scroll {
+    position: absolute;
+    
+    left: 47.5%;
+    top: 47.5%;
+    width: 50px;
+    height: 50px;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+
+.scroll-hover {
+
+}
+
+.tileText {
+    fill: #FFFFFF;
+}
+
+.canvas {
+    z-index: -1;
+}
+
+tile { }
+
 </style>
 
 <body>
-    <svg width=100% height=100%></svg>
+    <div id="leftHover" class="scroll-hover">
+        <div id="leftScroll" class="scroll"></div>
+    </div>
+    <div id="rightHover" class="scroll-hover">
+        <div id="rightScroll" class="scroll"></div>
+    </div>
+    <svg class="canvas" width=100% height=100%></svg>
 </body>
 
 <script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-var tileSize = 100;
+var tileSize = 125;
 
 var offset = { "x": 0, "y": 0 };
 
-function GetTiles()
-{
-    var tsize = 1.0 * tileSize;
+var index = 0;
+
+$(".scroll-hover").hover(
+  function () {
+    $(".scroll").attr("visibility", "visible");
+  });
+
+$("#leftScroll").click(function () { index++; DrawTiles(-1); });
+$("#rightScroll").click(function () { index--; DrawTiles(1); });
+
+DrawTiles(0);
+
+function GetTiles() {
     return {
-        "x": Math.ceiling(window.innerWidth / tsize),
-        "y": Math.ceiling(window.innerHeight / tsize)
+        "x": Math.ceil(window.innerWidth / tileSize),
+        "y": Math.floor(window.innerHeight / tileSize) 
     };
 }
 
-function DrawTiles(data)
-{
+function range(start, end, step) {
+    var result = [];
+    if (step > 0)
+    {
+        for (var i = start; i < start+end; i += step) {
+            result.push(i);
+        }
+    }
+    else if (step < 0)
+    {
+        for (var i = start; i > start+end; i += step) {
+            result.push(i);
+        }
+    }
+    return result;
+}
+
+function DrawTiles(dir) {
     var dim = GetTiles();
 
-    var tiles = d3.selectAll("square")
-        .data(data, String);
+    var amt = dim.x * dim.y;
+    var start = index*amt+dir*dim.y;
 
-    tiles.attr("x", function (_, i) { return i / dim.y * tileSize; })
-        .attr("y", function (_, i) { return i % dim.y * tileSize; })
-        .attr("class", "tile");
+    //alert(""+start);
 
-    
+    var rDir = dir==0 ? 1 : dir;
 
+    var data = range(start, amt*rDir, rDir);
+
+    var tiles = d3.select("svg").selectAll("rect")
+            .data(data, function (d) { return d; });
+
+    var text = d3.select("svg").selectAll("text")
+            .data(data, String);
+
+    if (dir == 0) {
+        tiles.enter().append("rect")
+            .attr("class", "enter")            
+            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
+            .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
+            .attr("width", tileSize)
+            .attr("height", tileSize)
+            .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); });
+
+        text.enter().append("text")
+            .attr("class", "tileText")
+            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize + tileSize/2; })
+            .attr("y", function (_, i) { return (i % dim.y) * tileSize + tileSize/2; })
+            .text(String)
+    }
+    else if (dir == 1) {
+        var shift = tileSize - (window.innerWidth % tileSize);
+
+        tiles.transition().duration(2000)
+            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift; });
+
+        text.transition().duration(2000)
+            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift + tileSize/2; });
+
+        tiles.enter().append("rect")
+                .attr("class", "enter")            
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift; })
+                .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
+                .attr("width", tileSize)
+                .attr("height", tileSize)
+                .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); })
+            .transition().duration(2000)
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - shift; });
+
+        text.enter().append("text")
+                .attr("class", "tileText")            
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift + tileSize/2; })
+                .attr("y", function (_, i) { return (i % dim.y) * tileSize + tileSize/2; })
+                .text(String)
+            .transition().duration(2000)
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - shift + tileSize/2; });
+
+        tiles.exit()
+                .attr("class", "exit")
+            .transition().duration(2000)
+                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir; })
+                .remove();
+
+        text.exit()
+            .transition().duration(2000)
+                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir + tileSize/2; })
+                .remove();
+
+
+        window.offset.x = shift;
+    }
+    else
+    {
+        //var offset = 0;
+
+        tiles.enter().append("rect")
+                .attr("class", "enter")            
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth * dir - offset; })
+                .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
+                .attr("width", tileSize)
+                .attr("height", tileSize)
+                .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); })
+            .transition().duration(750)
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - offset; });
+
+        tiles.exit()
+                .attr("class", "exit")
+            .transition().duration(750)
+                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir - offset; })
+                .remove();
+    }
 }
 
 
