@@ -10,7 +10,7 @@ class EchonestController < ApplicationController
                 :title  => params[:title],
               }
           )
-    raise response.body
+    
     respond_with({:rdio_song_id => JSON.parse(response.body)['response']['songs'][0]['tracks'][0]['foreign_id'].match(/rdio-US:track:([\w\d]+)/)[1]})
   end
 end
