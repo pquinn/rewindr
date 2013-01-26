@@ -1,5 +1,7 @@
 Rewindr::Application.routes.draw do
+  resources :albums, :only => :index
   resources :tracks, :only => :index
+  
   root to: "main#index"
 
   # The priority is based upon order of creation:
