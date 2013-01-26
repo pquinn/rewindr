@@ -128,6 +128,7 @@ function DrawTiles(dir) {
             .attr("y", function (_, i) { return  (i % dim.y) * tileSize; })
             .attr("width", tileSize)
             .attr("height", tileSize)
+            .attr("z", 0)
             .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
             .popover(function(d,i){
                 var svg = d3.select(document.createElement("svg")).attr("height", 70);
@@ -138,7 +139,7 @@ function DrawTiles(dir) {
                 g.append("text").text("Date: " + d.date["#text"]).attr("dy", "40").attr("y", "20");
                 //TODO: add in a svg element here based on data
                 return {      
-                     // The title that will be displayed on the popover
+                    // The title that will be displayed on the popover
                     title: d.name ,
                     //A d3 svg element
                     content: svg,
@@ -147,9 +148,15 @@ function DrawTiles(dir) {
                     position: [Math.floor(i / dim.y) * tileSize, (i % dim.y) * tileSize],
                     displacement: [- tileSize / 2, tileSize],            
                     mousemove: false,
-                    mouseover: function (d, i) { 
+                    mouseover: function (d, i) {
+                        tile.transition().duration(200)
+                            .attr("width", tileSize*1.5)
+                            .attr("height", tileSize*1.5);
                     },
-                    mouseout: function (d, i) { 
+                    mouseout: function (d, i) {
+                        tile.transition().duration(200)
+                            .attr("width", tileSize)
+                            .attr("height", tileSize);
                     },
                     click: selectTrack
                 };
@@ -164,6 +171,7 @@ function DrawTiles(dir) {
                 .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
                 .attr("width", tileSize)
                 .attr("height", tileSize)
+                .attr("z", 0)
                 .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
                 .popover(function(d,i){
                     var svg = d3.select(document.createElement("svg")).attr("height", 70);
