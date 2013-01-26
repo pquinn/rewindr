@@ -17,6 +17,7 @@
 //= require backbone
 
 //= require rewindr
+//= require album_wall
 
 //= require_tree ../templates
 //= require_tree ./models

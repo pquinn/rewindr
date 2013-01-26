@@ -1,4 +1,6 @@
 Rewindr::Application.routes.draw do
+  get "test/index"
+
   get "sessions/create"
 
   get "sessions/destroy"
