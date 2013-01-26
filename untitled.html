@@ -54,7 +54,7 @@ body {
 }
 
 .popover {
-    z-index: 3;
+    z-index: 4;
 }
 
 div .popover-content{
@@ -141,7 +141,7 @@ function DrawTiles(dir) {
                      // The title that will be displayed on the popover
                     title: d.name ,
                     //A d3 svg element
-                    content: svg, 
+                    content: svg,
                     placement: "fixed",
                     gravity: "right", 
                     position: [Math.floor(i / dim.y) * tileSize, (i % dim.y) * tileSize],
@@ -153,7 +153,7 @@ function DrawTiles(dir) {
     else {        
         canScroll = false;
         tiles.enter().append("image")
-                .attr("id", function (_, i) { return "image" + i})
+                .attr("id", function (_, i) { return "image" + i; })
                 .attr("class", "enter")            
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - width * dir; })
                 .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
@@ -161,12 +161,16 @@ function DrawTiles(dir) {
                 .attr("height", tileSize)
                 .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
                 .popover(function(d,i){
-                    var svg = d3.select(document.createElement("svg")).attr("height", 50);
+                    var svg = d3.select(document.createElement("svg")).attr("height", 70);
                     var tile = d3.select(this);
+                    var g = svg.append("g");
+                    g.append("text").text("Artist: " + d.artist["#text"]).attr("dy", "40").attr("y", "-20");
+                    g.append("text").text("Album: " + d.album["#text"]).attr("dy", "40").attr("y", "0");
+                    g.append("text").text("Date: " + d.date["#text"]).attr("dy", "40").attr("y", "20");
                     //TODO: add in a svg element here based on data
-                    return {        
-                         // The title that will be displayed on the popover
-                        title: d.title ,
+                    return {      
+                        // The title that will be displayed on the popover
+                        title: d.name ,
                         //A d3 svg element
                         content: svg, 
                         placement: "fixed",
@@ -176,13 +180,13 @@ function DrawTiles(dir) {
                         mousemove: false
                     };
                 })
-            .transition().duration(2000)
+            .transition().duration(750)
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
                 .each("end", function() { canScroll = true; });
 
         tiles.exit()
                 .attr("class", "exit")
-            .transition().duration(2000)
+            .transition().duration(750)
                 .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + width * dir; })
                 .remove();
     }
