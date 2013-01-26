@@ -10,9 +10,18 @@ Rewindr.Routers.Mains = Backbone.Router.extend({
   },
 
   playlist: function(userName) {
-  	debugger;
-  	var view = new Rewindr.Views.PlaylistsIndex();
-  	$('#container').html(view.render().el);
-  	$('#container').append(userName);
+  	var tracks = new Rewindr.Collections.Tracks();
+
+  	tracks.fetch({
+      "data" : {"user_name" : userName},
+  		"success" : function(collection, response, options) {
+  			var view = new Rewindr.Views.TracksIndex({"tracks" : collection});
+  			$('#container').html(view.render().el);
+  			$('#container').append(userName);  			
+  		},
+  		"error" : function() {
+  			$("container").html("There was an error.")
+  		}
+  	});
   }
 });

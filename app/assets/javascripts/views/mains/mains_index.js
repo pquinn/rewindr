@@ -31,7 +31,7 @@ Rewindr.Views.MainsIndex = Backbone.View.extend({
   	};
   	var date = new Date();
   	var dateString = months[date.getMonth()] + " " + date.getDate() + ", " + (date.getFullYear() - 1);
-    $(this.el).html(this.template({"date" : dateString}))
+    $(this.el).html(this.template({"date" : dateString}));
     return this
   }
 
