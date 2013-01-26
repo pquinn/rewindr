@@ -1,7 +1,7 @@
-class PlaylistsController < ApplicationController
+class TracksController < ApplicationController
   respond_to :json
   
-  def show
+  def index
     respond_with lastfm
   end
   
@@ -9,7 +9,7 @@ class PlaylistsController < ApplicationController
   
   def lastfm
     LASTFM.user.get_recent_tracks(
-      :user => params[:username], 
+      :user => params[:user_name], 
       :from => params[:from] || 365.days.ago.to_i,
       :to   => params[:to]   || 364.days.ago.to_i,
       :page => params[:page]

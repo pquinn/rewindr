@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe PlaylistsController do
-  describe 'GET show' do
+describe TracksController do
+  describe 'GET index' do
     it 'gets the playlist for the given user' do
-      get :show, :username => "Phillmatic19", :format => :json
+      get :index, :user_name => "Phillmatic19", :format => :json
       JSON.parse(response.body).should_not be_nil
     end
   end

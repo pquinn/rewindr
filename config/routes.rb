@@ -1,6 +1,6 @@
 Rewindr::Application.routes.draw do
+  resources :tracks, :only => :index
   root to: "main#index"
-  get 'playlist/:username' => 'playlists#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
