@@ -10,8 +10,9 @@ class PlaylistsController < ApplicationController
   def lastfm
     LASTFM.user.get_recent_tracks(
       :user => params[:username], 
-      :from => 1.year.ago.to_i, 
-      :to => (1.year.ago + 1.day).to_i
+      :from => params[:from] || 365.days.ago.to_i,
+      :to   => params[:to]   || 364.days.ago.to_i,
+      :page => params[:page]
     )
   end
 end

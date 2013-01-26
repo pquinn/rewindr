@@ -1,3 +1,11 @@
+PATH
+  remote: vendor/gems/ruby-lastfm
+  specs:
+    lastfm (1.14.1)
+      activesupport (>= 3.0.3)
+      httparty
+      xml-simple
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,10 +75,6 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.6)
-    lastfm (1.14.1)
-      activesupport (>= 3.0.3)
-      httparty
-      xml-simple
     less (2.2.1)
       commonjs (~> 0.2.6)
     less-rails (2.2.6)
@@ -163,7 +167,7 @@ DEPENDENCIES
   backbone-on-rails
   coffee-rails (~> 3.2.1)
   jquery-rails
-  lastfm
+  lastfm!
   less-rails
   pg
   rails (= 3.2.11)
