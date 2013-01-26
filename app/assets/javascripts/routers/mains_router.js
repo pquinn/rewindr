@@ -7,6 +7,14 @@ Rewindr.Routers.Mains = Backbone.Router.extend({
   index: function() {
      var view = new Rewindr.Views.MainsIndex()
      $('#container').html(view.render().el);
+     
+    // Try to focus the input
+
+    var el = document.getElementById("input-huge");
+
+    if (el) {
+      el.focus();
+    }
   },
 
   playlist: function(userName) {

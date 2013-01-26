@@ -31,6 +31,7 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
       var view = new Rewindr.Views.TrackListItem({"model" : model});
       var el = view.render().el;
       $(self.el).children().children().append(el);
+      $(self.el).children().children().append($("<hr>"));
     });
   	return this;
   }

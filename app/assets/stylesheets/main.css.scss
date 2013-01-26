@@ -6,6 +6,8 @@
 
 body {
   background: url(background.jpg);
+  background-repeat:no-repeat;
+  background-attachment:fixed; 
 }
 
 #main 
@@ -43,10 +45,13 @@ body {
 {
   //hardcoded values for branding
   background-color: black;
+  
   width: 304px;
   height: 64px;
+  
   margin-left: 10px;
   //margin-right: auto;
+  //position: fixed;
 }
 
 #spinner-location
