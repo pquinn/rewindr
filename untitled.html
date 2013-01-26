@@ -53,9 +53,18 @@ body {
     z-index: -1;
 }
 
+.popover {
+    z-index: 3;
+}
+
+div .popover-content{
+    padding-top: 0px;
+}
+
 tile { }
 
 </style>
+<link rel="stylesheet" href="./app/assets/stylesheets/d3-bootstrap-plugins.min.css" type="text/css"></link>
 
 <body>
     <div id="leftHover" class="scroll-hover">
@@ -69,6 +78,8 @@ tile { }
 
 <script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script src="./app/assets/javascripts/d3-bootstrap-plugins.js"></script>
 <script>
 
 var width = $("#canvas").width();
@@ -94,7 +105,7 @@ $("#rightScroll").click(function () { if (canScroll) { index++; DrawTiles(-1); }
 
 DrawTiles(0);
 
-function GetTiles() {
+function GetTiles() { 
     return {
         "x": xTiles,
         "y": Math.floor(height / tileSize) 
@@ -117,17 +128,54 @@ function DrawTiles(dir) {
             .attr("y", function (_, i) { return  (i % dim.y) * tileSize; })
             .attr("width", tileSize)
             .attr("height", tileSize)
-            .attr("xlink:href", function (d) { return d.image[2]["#text"]; });
+            .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
+            .popover(function(d,i){
+                var svg = d3.select(document.createElement("svg")).attr("height", 70);
+                var tile = d3.select(this);
+                var g = svg.append("g");
+                g.append("text").text("Artist: " + d.artist["#text"]).attr("dy", "40").attr("y", "-20");
+                g.append("text").text("Album: " + d.album["#text"]).attr("dy", "40").attr("y", "0");
+                g.append("text").text("Date: " + d.date["#text"]).attr("dy", "40").attr("y", "20");
+                //TODO: add in a svg element here based on data
+                return {      
+                     // The title that will be displayed on the popover
+                    title: d.name ,
+                    //A d3 svg element
+                    content: svg, 
+                    placement: "fixed",
+                    gravity: "right", 
+                    position: [Math.floor(i / dim.y) * tileSize, (i % dim.y) * tileSize],
+                    displacement: [- tileSize / 2, tileSize],            
+                    mousemove: false
+                };
+            });
     }
     else {        
         canScroll = false;
         tiles.enter().append("image")
+                .attr("id", function (_, i) { return "image" + i})
                 .attr("class", "enter")            
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - width * dir; })
                 .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
                 .attr("width", tileSize)
                 .attr("height", tileSize)
                 .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
+                .popover(function(d,i){
+                    var svg = d3.select(document.createElement("svg")).attr("height", 50);
+                    var tile = d3.select(this);
+                    //TODO: add in a svg element here based on data
+                    return {        
+                         // The title that will be displayed on the popover
+                        title: d.title ,
+                        //A d3 svg element
+                        content: svg, 
+                        placement: "fixed",
+                        gravity: "right", 
+                        position: [Math.floor(i / dim.y) * tileSize, (i % dim.y) * tileSize],
+                        displacement: [- tileSize / 2, tileSize],            
+                        mousemove: false
+                    };
+                })
             .transition().duration(2000)
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
                 .each("end", function() { canScroll = true; });
