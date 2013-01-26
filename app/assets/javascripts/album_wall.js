@@ -22,11 +22,6 @@ jQuery(function() {
     to   = (to - 604800)
   }
 
-  $(".scroll-hover").hover(
-    function () {
-      $(".scroll").attr("visibility", "visible");
-    });
-
   $("#leftScroll").click(function ()  { 
     if (canScroll) {
       addWeek();
@@ -65,10 +60,42 @@ jQuery(function() {
     tiles.enter().append("image")
       .attr("class", "enter")
       .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize; })
-      .attr("y", function (_, i) { return  (i % dimensions.y) * tileSize; })
+      .attr("y", function (_, i) { return  (i % dimensions.y) * tileSize - height; })
       .attr("width", tileSize)
       .attr("height", tileSize)
-      .attr("xlink:href", function (d) { return d.image[2]["content"] || "http://img.pokemondb.net/artwork/unown.jpg"; });
+      .attr("xlink:href", function (d) { return d.image[2]["content"] || "http://img.pokemondb.net/artwork/unown.jpg"; })
+      .popover(function(d,i){
+                  var svg = d3.select(document.createElement("svg")).attr("height", 70);
+                  var tile = d3.select(this);
+                  var g = svg.append("g");
+                  g.append("text").text("Artist: " + d.artist["content"]).attr("dy", "40").attr("y", "-20");
+                  g.append("text").text("Album: " + d.album["content"]).attr("dy", "40").attr("y", "0");
+                  g.append("text").text("Date: " + d.date["content"]).attr("dy", "40").attr("y", "20");
+                  return {      
+                      // The title that will be displayed on the popover
+                      title: d.name ,
+                      //A d3 svg element
+                      content: svg,
+                      placement: "fixed",
+                      gravity: "right", 
+                      position: [Math.floor(i / dimensions.y) * tileSize, (i % dimensions.y) * tileSize],
+                      displacement: [- tileSize / 2, tileSize],            
+                      mousemove: false,
+                      mouseover: function (d, i) {
+                          tile.transition().duration(200)
+                              .attr("width", tileSize*1.2)
+                              .attr("height", tileSize*1.2);
+                      },
+                      mouseout: function (d, i) {
+                          tile.transition().duration(200)
+                              .attr("width", tileSize)
+                              .attr("height", tileSize);
+                      },
+                      click: selectTrack
+                  };
+              })
+              .transition().duration(750).delay(function (d, i) { return i * 15; })
+                  .attr("y", function (_, i) { return  (i % dimensions.y) * tileSize; });
   }
   
   function transitionAndAddTilesToWall(data, direction) {
@@ -83,18 +110,49 @@ jQuery(function() {
       .attr("width", tileSize)
       .attr("height", tileSize)
       .attr("xlink:href", function (d) { return d.image[2]["content"] || "http://img.pokemondb.net/artwork/unown.jpg"; })
+      .popover(function(d,i){
+                  var svg = d3.select(document.createElement("svg")).attr("height", 70);
+                  var tile = d3.select(this);
+                  var g = svg.append("g");
+                  g.append("text").text("Artist: " + d.artist["content"]).attr("dy", "40").attr("y", "-20");
+                  g.append("text").text("Album: " + d.album["content"]).attr("dy", "40").attr("y", "0");
+                  g.append("text").text("Date: " + d.date["content"]).attr("dy", "40").attr("y", "20");
+                  return {
+                      // The title that will be displayed on the popover
+                      title: d.name ,
+                      //A d3 svg element
+                      content: svg,
+                      placement: "fixed",
+                      gravity: "right", 
+                      position: [Math.floor(i / dimensions.y) * tileSize, (i % dimensions.y) * tileSize],
+                      displacement: [- tileSize / 2, tileSize],            
+                      mousemove: false,
+                      mouseover: function (d, i) {
+                          tile.transition().duration(200)
+                              .attr("width", tileSize*1.2)
+                              .attr("height", tileSize*1.2);
+                      },
+                      mouseout: function (d, i) {
+                          tile.transition().duration(200)
+                              .attr("width", tileSize)
+                              .attr("height", tileSize);
+                      },
+                      click: selectTrack
+                  };
+              })
 
-      .transition().duration(2000)
-
+      .transition().duration(750)
       .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize; })
       .each("end", function() { canScroll = true; });
 
     tiles.exit()
       .attr("class", "exit")
-      .transition().duration(2000)
+      .transition().duration(750)
       .attr("x", function(d, i) { return Math.floor(i / dimensions.y) * tileSize + width * direction; })
       .remove();
   }
+  
+  function selectTrack(d, i) {}
 
   function GetTiles() {
     return {
