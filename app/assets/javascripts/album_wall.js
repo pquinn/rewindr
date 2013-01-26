@@ -24,7 +24,7 @@ jQuery(function() {
     }
   });
   
-  getTracks(null, null, addTilesToWall);
+  // getTracks(null, null, addTilesToWall);
 
   function getTracks(from, to, callback) {
     $.ajax('/tracks', {

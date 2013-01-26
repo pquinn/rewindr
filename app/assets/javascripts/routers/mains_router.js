@@ -24,7 +24,6 @@ Rewindr.Routers.Mains = Backbone.Router.extend({
       "data" : {"user_name" : userName, "page" : 1},
   		"success" : function(collection, response, options) {
   			var view = new Rewindr.Views.TracksIndex({"tracks" : collection, "user" : userName});
-        debugger;
   			var rendered = view.render().el;
         $('#container').html(rendered);			
   		},
