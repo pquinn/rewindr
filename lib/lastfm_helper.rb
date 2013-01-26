@@ -1,26 +1,24 @@
 class LastfmHelper
-  def self.how_many_albums(tracks)
-    tracks.inject({}) do |memo, track|
-      album_name = track["album"]["content"]
-      
-      memo[album_name] ||= 0
-      memo[album_name] +=  1
-      memo
-    end
+  def self.get_recent_tracks(options={})
+    tracks = LASTFM.user.get_recent_tracks(
+               :user  => options[:user_name], 
+               :from  => options[:from] || 365.days.ago.to_i,
+               :to    => options[:to]   || 364.days.ago.to_i,
+               :page  => options[:page],
+               :limit => options[:limit]
+             )
+             
+    LastfmHelper.fix_duplicate_listens(tracks)
   end
   
-=begin
-  def self.penis
-    10.times do |n|
-      list = LASTFM.user.get_recent_tracks(
-        :user => "Phillmatic19", 
-        :limit => 200,
-        :from => (n.month.ago - 1.days).to_i,
-        :to => n.month.ago.to_i
-      )
-      puts Stuff.how_many_albums(list).sum.length / 2
+  def self.fix_duplicate_listens(tracks)
+    previous_time = ""
+    tracks.each do |track|
+      if track["date"]["uts"] == previous_time
+        track["date"]["uts"] = (track["date"]["uts"].to_i + 1).to_s
+      end
+      previous_time = track["date"]["uts"]
     end
+    tracks
   end
-=end
-
 end
