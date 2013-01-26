@@ -24,7 +24,7 @@ annotate = function(options, create) {
     center[1] += options.displacement[1];
     return selection.style("left", "" + center[0] + "px").style("top", "" + center[1] + "px").style("display", "block");
   };
-  el.on("mouseover", function() {
+  el.on("mouseover", function(d, i) {
     var inner, tip;
     tip = create();
     tip.classed("annotation", true).classed(options.gravity, true).classed('fade', true).style("display", "none");
@@ -33,6 +33,8 @@ annotate = function(options, create) {
       return tip.classed('in', true);
     };
     setTimeout(inner, 10);
+    if (options.mouseover)
+      options.mouseover(d, i);
     return tip.style("display", "").call(move_tip.bind(this));
   });
   if (options.mousemove) {
@@ -40,12 +42,22 @@ annotate = function(options, create) {
       return d3.select(".annotation").call(move_tip.bind(this));
     });
   }
-  return el.on("mouseout", function() {
+
+  el.on("click", function(d, i) {
+    if (options.click)
+      options.click(d, i);
+  });
+
+  return el.on("mouseout", function(d, i) {
     var remover, tip;
     tip = d3.selectAll(".annotation").classed('in', false);
     remover = function() {
       return tip.remove();
     };
+
+    if (options.mouseout)
+      options.mouseout(d, i);
+
     return setTimeout(remover, 150);
   });
 };
