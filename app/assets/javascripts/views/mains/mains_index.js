@@ -1,6 +1,18 @@
 Rewindr.Views.MainsIndex = Backbone.View.extend({
 
   template: JST['mains/index'],
+
+  events: {
+  	"submit #user-form" : "handleEnter"
+  },
+
+  handleEnter: function(e) {
+  	e.preventDefault();
+  	var userName = $("#input-huge").val();
+  	Backbone.history.navigate("playlist/" + userName, {trigger: true});
+  	//Backbone.history.navigate("playlist/" + userName);
+
+  },
   
   render: function() {
   	var months = {

@@ -1,12 +1,13 @@
 
 <div class="container">
-	<div class="row">
-		<div class="span8">
+	<div id="main" class="row-fluid">
+		<div class="span6 offset3">
 			<div id="question">
-				<h1>What were you listening to on <%= date %> ?</h1>
+				<h1>What were you listening to on</h1>
+				<h1><%= date %>?</h1>
 			</div>
 			<div>
-				<form class="form-inline">
+				<form id="user-form" class="form-inline">
 					<input id="input-huge" type="text" placeholder="Last.fm Username">
 				</form>
 			</div>
