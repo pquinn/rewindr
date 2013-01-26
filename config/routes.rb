@@ -1,6 +1,6 @@
 Rewindr::Application.routes.draw do
   root to: "main#index"
-  get 'playlists/:username' => 'playlists#show'
+  get 'playlist/:username' => 'playlists#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
