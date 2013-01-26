@@ -32,11 +32,13 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
 
             var button = $("<button id='show-more' class='btn' type='button'>Show more</button>");
 
-            button.click(function() {self.clickHandler(self)});
-
-            $(self.el).children().children().append(button);
-
-            self.pageCount++;
+            if(self.collection.models.length === 10) {
+              button.click(function() {self.clickHandler(self)});
+              $(self.el).children().children().append(button);
+              self.pageCount++;
+            } else {
+              $(self.el).children().children().append("You're done, kid")
+            }
 
             //var view = new Rewindr.Views.TracksIndex({"tracks" : collection});
             //debugger;

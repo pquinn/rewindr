@@ -26,8 +26,7 @@ Rewindr.Routers.Mains = Backbone.Router.extend({
   			var view = new Rewindr.Views.TracksIndex({"tracks" : collection, "user" : userName});
         debugger;
   			var rendered = view.render().el;
-        $('#container').html(rendered);
-  			$('#container').append(userName);  			
+        $('#container').html(rendered);			
   		},
   		"error" : function() {
   			$("container").html("There was an error.")
