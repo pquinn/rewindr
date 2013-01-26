@@ -31,7 +31,7 @@ Rewindr.Views.TrackListItem = Backbone.View.extend({
           $('#api').rdio().play(data.rdio_song_id);
         },
         error: function() {
-          alert('SHIT')
+          alert('oh my god what have you done this is awful')
         }
       });
       $(iconPlay).toggleClass("icon-pause");
