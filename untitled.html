@@ -110,6 +110,7 @@ function DrawTiles(dir) {
 
     var tiles = d3.select("svg").selectAll("image")
         .data(test, function(d) { return parseInt(d.date.uts); });
+    debugger;
     if (dir == 0) {
         tiles.enter().append("image")
             .attr("class", "enter")
@@ -128,13 +129,13 @@ function DrawTiles(dir) {
                 .attr("width", tileSize)
                 .attr("height", tileSize)
                 .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
-            .transition().duration(2000)
+            .transition().duration(750)
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
                 .each("end", function() { canScroll = true; });
 
         tiles.exit()
                 .attr("class", "exit")
-            .transition().duration(2000)
+            .transition().duration(750)
                 .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + width * dir; })
                 .remove();
     }
@@ -148,7 +149,7 @@ function extractData(pos, amt) {
     return x;
 }
 
-function data() {
+    function data() {
     return  {
   "recenttracks": {
     "track": [
