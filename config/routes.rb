@@ -7,6 +7,8 @@ Rewindr::Application.routes.draw do
     get 'wall', :on => :collection
   end
   
+  get "echonest/rdio_song_id"
+  
   root to: "main#index"
   match 'auth/rdio/callback', to: 'sessions#create'
 
