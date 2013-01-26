@@ -2,12 +2,49 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 
+// font-family: 'Roboto Condensed', sans-serif;
+
+body {
+  background: url(background.jpg);
+}
+
+#main 
+{
+  margin-top: 180px;
+}
+
 #input-huge
 {
-	height: 100px;
-	width: 500px;
+	height: 50px;
+	width: 100%;
 	border: 1px solid #999999; 
 	padding: 5px;
-	font-size: 50px;
+	font-size: 30px;
 	line-height: 1;
+}
+
+#question h1
+{
+  text-align: center;
+  color: #eee;
+  text-shadow: #000 0 1px 2px;
+}
+
+#branding h1
+{
+  color: #eee;
+  font-size: 60px;
+  text-shadow: #000 0 1px 2px;
+  vertical-align: center;
+  padding-top: 9px;
+}
+
+#branding
+{
+  //hardcoded values for branding
+  background-color: black;
+  width: 304px;
+  height: 64px;
+  margin-left: 10px;
+  //margin-right: auto;
 }
