@@ -1,10 +1,11 @@
 Rewindr::Application.routes.draw do
   get "sessions/create"
-
   get "sessions/destroy"
 
   resources :albums, :only => :index
-  resources :tracks, :only => :index
+  resources :tracks, :only => :index do
+    get 'wall', :on => :collection
+  end
   
   root to: "main#index"
   match 'auth/rdio/callback', to: 'sessions#create'

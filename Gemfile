@@ -28,6 +28,7 @@ gem "twitter-bootstrap-rails"
 gem "lastfm"
 gem "rdio_api", :path => 'vendor/gems/rdio_api'
 gem "omniauth-rdio"
+gem "gon"
 
 group :development do
   gem 'thin'

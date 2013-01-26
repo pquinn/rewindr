@@ -15,8 +15,10 @@
 //= require twitter/bootstrap
 //= require underscore
 //= require backbone
+//= require d3
 
 //= require rewindr
+//= require album_wall
 
 //= require_tree ../templates
 //= require_tree ./models
