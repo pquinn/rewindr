@@ -8,6 +8,19 @@ jQuery(function() {
   
   var dimensions = GetTiles();
   var numberOfTilesPerPage = dimensions.x * dimensions.y;
+  
+  var from = gon.from_time
+  var to   = gon.to_time
+  
+  function addWeek() {
+    from = (from + 604800)
+    to   = (to + 604800)
+  }
+  
+  function subtractWeek() {
+    from = (from - 604800)
+    to   = (to - 604800)
+  }
 
   $(".scroll-hover").hover(
     function () {
@@ -16,17 +29,20 @@ jQuery(function() {
 
   $("#leftScroll").click(function ()  { 
     if (canScroll) {
+      addWeek();
+      getTracks(function(data) { transitionAndAddTilesToWall(data, 1) });
     } 
   });
   $("#rightScroll").click(function () { 
     if (canScroll) {
-      getTracks("1329026400", "1329112800", transitionAndAddTilesToWall);
+      subtractWeek();
+      getTracks(function(data) { transitionAndAddTilesToWall(data, -1) });
     }
   });
   
-  // getTracks(null, null, addTilesToWall);
+  getTracks(addTilesToWall);
 
-  function getTracks(from, to, callback) {
+  function getTracks(callback) {
     $.ajax('/tracks', {
       data: {
         'user_name': gon.user_name,
@@ -55,14 +71,14 @@ jQuery(function() {
       .attr("xlink:href", function (d) { return d.image[2]["content"] || "http://img.pokemondb.net/artwork/unown.jpg"; });
   }
   
-  function transitionAndAddTilesToWall(data) {
+  function transitionAndAddTilesToWall(data, direction) {
     var tiles = d3.select("svg").selectAll("image")
         .data(data, function(d) { return parseInt(d.date.uts); });
         
     canScroll = false;
     tiles.enter().append("image")
       .attr("class", "enter")            
-      .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize - width * 1; })
+      .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize - width * direction; })
       .attr("y", function (_, i) { return (i % dimensions.y) * tileSize; })
       .attr("width", tileSize)
       .attr("height", tileSize)
@@ -76,7 +92,7 @@ jQuery(function() {
     tiles.exit()
       .attr("class", "exit")
       .transition().duration(2000)
-      .attr("x", function(d, i) { return Math.floor(i / dimensions.y) * tileSize + width * 1; })
+      .attr("x", function(d, i) { return Math.floor(i / dimensions.y) * tileSize + width * direction; })
       .remove();
   }
 
