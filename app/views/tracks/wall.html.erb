@@ -1,11 +1,40 @@
 <div id="leftHover" class="scroll-hover">
     <div id="leftScroll" class="scroll"></div>
 </div>
-<div id="rightHover" class="scroll-hover">
+<div id="rightHover" class="scroll-hover" href="#test_modal" data-toggle="modal">
     <div id="rightScroll" class="scroll"></div>
 </div>
 
 
-<div style="background-color: #eee;position: absolute;width: 800px;height: 100%;left: 20%;opacity:.75"></div>
+<div class="modal fade" id="test_modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+  </div>
+  <div class="modal-body span5">
+    <div class="row-fluid">
+      <div class="span4">
+        <img src=""></img>
+      </div>
+      <div class="span8">
+        <p>Test Modal</p>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span8">
+        <img src=""></img>
+      </div>
+      <div class="span4">
+        <ul>
+          <li>information</li>
+          <li>stuff</li>
+          <li>things</li>
+          <li>more info</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
 
 <svg id="canvas" class="canvas" width=100% height=100%></svg>
