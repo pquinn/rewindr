@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+</style>
+
+<body>
+    <svg width=100% height=100%></svg>
+</body>
+
+<script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
+<script>
+
+var tileSize = 100;
+
+var offset = { "x": 0, "y": 0 };
+
+function GetTiles()
+{
+    var tsize = 1.0 * tileSize;
+    return {
+        "x": Math.ceiling(window.innerWidth / tsize),
+        "y": Math.ceiling(window.innerHeight / tsize)
+    };
+}
+
+function DrawTiles(data)
+{
+    var dim = GetTiles();
+
+    var tiles = d3.selectAll("square")
+        .data(data, String);
+
+    tiles.attr("x", function (_, i) { return i / dim.y * tileSize; })
+        .attr("y", function (_, i) { return i % dim.y * tileSize; })
+        .attr("class", "tile");
+
+    
+
+}
+
+
+</script>
