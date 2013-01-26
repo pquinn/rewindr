@@ -65,7 +65,7 @@ tile { }
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-var tileSize = 125;
+var tileSize = window.innerWidth / 10;
 
 var offset = { "x": 0, "y": 0 };
 
@@ -83,25 +83,17 @@ DrawTiles(0);
 
 function GetTiles() {
     return {
-        "x": Math.ceil(window.innerWidth / tileSize),
+        "x": 10,
         "y": Math.floor(window.innerHeight / tileSize) 
     };
 }
 
-function range(start, end, step) {
+function range() {
     var result = [];
-    if (step > 0)
-    {
-        for (var i = start; i < start+end; i += step) {
-            result.push(i);
-        }
+    for (var i = 0; i < 10; i += 1) {
+        result.push(i);
     }
-    else if (step < 0)
-    {
-        for (var i = start; i > start+end; i += step) {
-            result.push(i);
-        }
-    }
+
     return result;
 }
 
@@ -109,80 +101,40 @@ function DrawTiles(dir) {
     var dim = GetTiles();
 
     var amt = dim.x * dim.y;
-    var start = index*amt+dir*dim.y;
 
-    //alert(""+start);
-
-    var rDir = dir==0 ? 1 : dir;
-
-    var data = range(start, amt*rDir, rDir);
+    var data = range();
 
     var tiles = d3.select("svg").selectAll("rect")
-            .data(data, function (d) { return d; });
-
-    var text = d3.select("svg").selectAll("text")
-            .data(data, String);
+            .data(data);
 
     if (dir == 0) {
         tiles.enter().append("rect")
             .attr("class", "enter")            
-            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
-            .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
+            .attr("x", function (_, i) { return i * tileSize; })
+            .attr("y", function (_, i) { return alert((i % dim.y) * tileSize); (i % dim.y) * tileSize; })
             .attr("width", tileSize)
             .attr("height", tileSize)
             .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); });
-
-        text.enter().append("text")
-            .attr("class", "tileText")
-            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize + tileSize/2; })
-            .attr("y", function (_, i) { return (i % dim.y) * tileSize + tileSize/2; })
-            .text(String)
     }
     else if (dir == 1) {
-        var shift = tileSize - (window.innerWidth % tileSize);
-
-        tiles.transition().duration(2000)
-            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift; });
-
-        text.transition().duration(2000)
-            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift + tileSize/2; });
-
         tiles.enter().append("rect")
                 .attr("class", "enter")            
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift; })
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth * dir - offset; })
                 .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
                 .attr("width", tileSize)
                 .attr("height", tileSize)
                 .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); })
-            .transition().duration(2000)
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - shift; });
-
-        text.enter().append("text")
-                .attr("class", "tileText")            
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth - offset.x - shift + tileSize/2; })
-                .attr("y", function (_, i) { return (i % dim.y) * tileSize + tileSize/2; })
-                .text(String)
-            .transition().duration(2000)
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - shift + tileSize/2; });
+            .transition().duration(750)
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - offset; });
 
         tiles.exit()
                 .attr("class", "exit")
-            .transition().duration(2000)
-                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir; })
+            .transition().duration(750)
+                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir - offset; })
                 .remove();
-
-        text.exit()
-            .transition().duration(2000)
-                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir + tileSize/2; })
-                .remove();
-
-
-        window.offset.x = shift;
     }
     else
     {
-        //var offset = 0;
-
         tiles.enter().append("rect")
                 .attr("class", "enter")            
                 .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth * dir - offset; })
