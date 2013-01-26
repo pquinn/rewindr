@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem "rails-backbone"
 
 group :development do
   gem 'thin'
