@@ -5,7 +5,7 @@ class LastfmHelper
                :from  => options[:from] || 365.days.ago.to_i,
                :to    => options[:to]   || 364.days.ago.to_i,
                :page  => options[:page],
-               :limit => options[:limit]
+               :limit => options[:limit] || 200
              )
              
     LastfmHelper.fix_duplicate_listens(tracks)

@@ -19,6 +19,6 @@ class TracksController < ApplicationController
   private
   
   def lastfm
-    @lastfm ||= LastfmHelper.get_recent_tracks(params)
+    @lastfm ||= LastfmHelper.get_recent_tracks(params).shuffle.take(10)
   end
 end
