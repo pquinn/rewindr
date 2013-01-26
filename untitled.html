@@ -25,14 +25,20 @@ body {
 }
 
 .scroll {
-    position: absolute;
-    
-    left: 47.5%;
+    position: absolute;    
     top: 47.5%;
     width: 50px;
     height: 50px;
     background-color: #FFFFFF;
     z-index: 1;
+}
+
+#leftScroll {
+    left: 47.5%;
+}
+
+#rightScroll {
+    right: 47.5%;
 }
 
 .scroll-hover {
@@ -58,39 +64,46 @@ tile { }
     <div id="rightHover" class="scroll-hover">
         <div id="rightScroll" class="scroll"></div>
     </div>
-    <svg class="canvas" width=100% height=100%></svg>
+    <svg id="canvas" class="canvas" width=100% height=100%></svg>
 </body>
 
 <script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 
-var tileSize = window.innerWidth / 10;
+var width = $("#canvas").width();
+var height = $("#canvas").height();
+var tileSize =  width / 10;
 
 var offset = { "x": 0, "y": 0 };
 
 var index = 0;
+
+var canScroll = true;
+var current = 50;
+
+var data = data();
 
 $(".scroll-hover").hover(
   function () {
     $(".scroll").attr("visibility", "visible");
   });
 
-$("#leftScroll").click(function () { index++; DrawTiles(-1); });
-$("#rightScroll").click(function () { index--; DrawTiles(1); });
+$("#leftScroll").click(function () { if (canScroll) { index++; DrawTiles(-1); } });
+$("#rightScroll").click(function () { if (canScroll) { index--; DrawTiles(1); } });
 
 DrawTiles(0);
 
 function GetTiles() {
     return {
         "x": 10,
-        "y": Math.floor(window.innerHeight / tileSize) 
+        "y": Math.floor(height / tileSize) 
     };
 }
 
-function range() {
+function range(start, amount) {
     var result = [];
-    for (var i = 0; i < 10; i += 1) {
+    for (var i = start; i < start+amount; i += 1) {
         result.push(i);
     }
 
@@ -101,57 +114,422 @@ function DrawTiles(dir) {
     var dim = GetTiles();
 
     var amt = dim.x * dim.y;
+    
+    var test = extractData(current, amt);
 
-    var data = range();
-
-    var tiles = d3.select("svg").selectAll("rect")
-            .data(data);
+    var tiles = d3.select("svg").selectAll("image")
+        .data(test, function(d) { return d; });
 
     if (dir == 0) {
-        tiles.enter().append("rect")
-            .attr("class", "enter")            
-            .attr("x", function (_, i) { return i * tileSize; })
-            .attr("y", function (_, i) { return alert((i % dim.y) * tileSize); (i % dim.y) * tileSize; })
+        tiles.enter().append("image")
+            .attr("class", "enter")
+            .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
+            .attr("y", function (_, i) { return  (i % dim.y) * tileSize; })
             .attr("width", tileSize)
             .attr("height", tileSize)
-            .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); });
+            .attr("xlink:href", function (d) { alert(d.image[3]["#text"]); return d.image[3]["#text"]; });
     }
-    else if (dir == 1) {
+    else {
+        canScroll = false;
         tiles.enter().append("rect")
                 .attr("class", "enter")            
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth * dir - offset; })
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - width * dir; })
                 .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
                 .attr("width", tileSize)
                 .attr("height", tileSize)
                 .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); })
-            .transition().duration(750)
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - offset; });
+            .transition().duration(2000)
+                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
+                .each("end", function(){ canScroll = true; });
 
         tiles.exit()
                 .attr("class", "exit")
-            .transition().duration(750)
-                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir - offset; })
+            .transition().duration(2000)
+                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + width * dir; })
                 .remove();
-    }
-    else
-    {
-        tiles.enter().append("rect")
-                .attr("class", "enter")            
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - window.innerWidth * dir - offset; })
-                .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
-                .attr("width", tileSize)
-                .attr("height", tileSize)
-                .attr("fill", function (_) { return '#'+Math.floor(Math.random()*16777215).toString(16); })
-            .transition().duration(750)
-                .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - offset; });
 
-        tiles.exit()
-                .attr("class", "exit")
-            .transition().duration(750)
-                .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + window.innerWidth * dir - offset; })
-                .remove();
+        current += dir * amt;
     }
 }
 
+function extractData(pos, amt) {
+    return data.recenttracks.track.slice(pos, pos + amt);
+}
+
+function data() {
+    return {
+      "recenttracks": {
+        "track": [
+          {
+            "artist": {
+              "#text": "Aretha Franklin",
+              "mbid": "2f9ecbed-27be-40e6-abca-6de49d50299e"
+            },
+            "name": "Think",
+            "streamable": "1",
+            "mbid": "e412fd05-2862-4aad-8ed6-4d7cb425ca34",
+            "album": {
+              "#text": "Respect",
+              "mbid": "68f30ee1-2bbf-4d5a-9cf6-c8a492bd8559"
+            },
+            "url": "http://www.last.fm/music/Aretha+Franklin/_/Think",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/67222526.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/67222526.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/67222526.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/67222526.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 19:03",
+              "uts": "1359140617"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Etta James",
+              "mbid": "e22d2f66-881e-41ca-9356-544697ee5f90"
+            },
+            "name": "I'd Rather Go Blind",
+            "streamable": "1",
+            "mbid": "1b3df183-7869-4af4-ad26-fbe3a23a1ba6",
+            "album": {
+              "#text": "Her Best",
+              "mbid": "b53bb19e-6570-4992-acfa-c03b5b07f351"
+            },
+            "url": "http://www.last.fm/music/Etta+James/_/I%27d+Rather+Go+Blind",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/67206720.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/67206720.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/67206720.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/67206720.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 19:01",
+              "uts": "1359140461"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Mark Morrison",
+              "mbid": "0cea7c0d-5ed7-413d-9418-3504180f958a"
+            },
+            "name": "Return of the Mack",
+            "streamable": "1",
+            "mbid": "00426214-e463-4231-ab36-b7cd88d65460",
+            "album": {
+              "#text": "Touch My Soul - The Finest Of Black Music Vol.6",
+              "mbid": ""
+            },
+            "url": "http://www.last.fm/music/Mark+Morrison/_/Return+of+the+Mack",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/83224753.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/83224753.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/83224753.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/83224753.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:58",
+              "uts": "1359140319"
+            }
+          },
+          {
+            "artist": {
+              "#text": "The Tornadoes",
+              "mbid": "d557c4bb-253c-4f3b-967f-b6fef3e6db37"
+            },
+            "name": "Bustin' Surfboards",
+            "streamable": "1",
+            "mbid": "a1d9a58c-541b-4677-9847-3c5810f5b7c8",
+            "album": {
+              "#text": "Bustin' Surfboards",
+              "mbid": "0f055c6b-5a0c-40c5-891c-ff9e41d16acd"
+            },
+            "url": "http://www.last.fm/music/The+Tornadoes/_/Bustin%27+Surfboards",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/81485939.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/81485939.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/81485939.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/81485939.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:56",
+              "uts": "1359140170"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Johnny Cash",
+              "mbid": "d43d12a1-2dc9-4257-a2fd-0a3bb1081b86"
+            },
+            "name": "So Doggone Lonesome",
+            "streamable": "1",
+            "mbid": "cecab8cd-597d-4048-ab0d-43f4c819b9b9",
+            "album": {
+              "#text": "The Legend",
+              "mbid": "06937faa-19ff-3ad0-84a8-9ae6149017a4"
+            },
+            "url": "http://www.last.fm/music/Johnny+Cash/_/So+Doggone+Lonesome",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/77919910.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/77919910.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/77919910.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/77919910.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:53",
+              "uts": "1359140015"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Goo Goo Dolls",
+              "mbid": "e2c00c56-8365-4160-9f40-a64682917633"
+            },
+            "name": "Here Is Gone",
+            "streamable": "0",
+            "mbid": "5a78142b-831a-407c-818f-7a68f3c3891e",
+            "album": {
+              "#text": "Gutterflower",
+              "mbid": "4f734750-4a00-35b4-a259-2c15093c83cc"
+            },
+            "url": "http://www.last.fm/music/Goo+Goo+Dolls/_/Here+Is+Gone",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/41723229.png",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/41723229.png",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/41723229.png",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/41723229.png",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:49",
+              "uts": "1359139776"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Bob Marley & The Wailers",
+              "mbid": "92999875-b86e-40df-be98-18b3fdd3d285"
+            },
+            "name": "No Sympathy",
+            "streamable": "1",
+            "mbid": "010c9ffc-94a5-46aa-b8b4-afa2379cbc87",
+            "album": {
+              "#text": "Bob Marley",
+              "mbid": "04df083a-cc77-45ec-a663-b024dbae6fec"
+            },
+            "url": "http://www.last.fm/music/Bob+Marley+&+The+Wailers/_/No+Sympathy",
+            "image": [
+              {
+                "#text": "",
+                "size": "small"
+              },
+              {
+                "#text": "",
+                "size": "medium"
+              },
+              {
+                "#text": "",
+                "size": "large"
+              },
+              {
+                "#text": "",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:47",
+              "uts": "1359139641"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Aztec Camera",
+              "mbid": "53578264-7436-437b-87a0-3b034a3661f0"
+            },
+            "name": "Somewhere In My Heart",
+            "streamable": "0",
+            "mbid": "1f707803-8daa-498a-be68-41ca3511e2e1",
+            "album": {
+              "#text": "The Best of Aztec Camera",
+              "mbid": "eac98e38-0cb1-4a40-aa45-2036767c34f4"
+            },
+            "url": "http://www.last.fm/music/Aztec+Camera/_/Somewhere+In+My+Heart",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/8725045.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/8725045.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/8725045.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/8725045.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:43",
+              "uts": "1359139403"
+            }
+          },
+          {
+            "artist": {
+              "#text": "Blue Sky Black Death",
+              "mbid": "1b8ed32a-294c-4224-a770-2c20b8a5b0c1"
+            },
+            "name": "Sky With Hand",
+            "streamable": "1",
+            "mbid": "93e37d3c-6f63-4ce6-8fba-2a67aeaa6dda",
+            "album": {
+              "#text": "NOIR",
+              "mbid": "0d72fae1-8694-45d1-9e62-a273203ce2a2"
+            },
+            "url": "http://www.last.fm/music/Blue+Sky+Black+Death/_/Sky+With+Hand",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/61606213.png",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/61606213.png",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/61606213.png",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/61606213.png",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:36",
+              "uts": "1359139002"
+            }
+          },
+          {
+            "artist": {
+              "#text": "The Doobie Brothers",
+              "mbid": "588dea29-eea3-456b-a815-3ee04f75c8e7"
+            },
+            "name": "What a Fool Believes",
+            "streamable": "1",
+            "mbid": "0654a7d5-a533-41bb-a7e5-7d80c0eeb432",
+            "album": {
+              "#text": "Greatest Hits",
+              "mbid": "505c69dc-09b4-3625-b8e7-ddf11e602d82"
+            },
+            "url": "http://www.last.fm/music/The+Doobie+Brothers/_/What+a+Fool+Believes",
+            "image": [
+              {
+                "#text": "http://userserve-ak.last.fm/serve/34s/46357497.jpg",
+                "size": "small"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/64s/46357497.jpg",
+                "size": "medium"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/126/46357497.jpg",
+                "size": "large"
+              },
+              {
+                "#text": "http://userserve-ak.last.fm/serve/300x300/46357497.jpg",
+                "size": "extralarge"
+              }
+            ],
+            "date": {
+              "#text": "25 Jan 2013, 18:32",
+              "uts": "1359138779"
+            }
+          }
+        ],
+        "@attr": {
+          "user": "RJ",
+          "page": "1",
+          "perPage": "10",
+          "totalPages": "5227",
+          "total": "52263"
+        }
+      }
+    }
+}
 
 </script>
