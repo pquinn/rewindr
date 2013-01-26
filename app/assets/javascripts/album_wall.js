@@ -6,12 +6,13 @@ jQuery(function() {
 
   var offset = { "x": 0, "y": 0 };
 
-  var index = 2;
+  var index = 0;
 
   var canScroll = true;
 
   var data = gon.track_data;
-  console.log(data)
+  // alert(data);
+  // var data
 
   $(".scroll-hover").hover(
     function () {
@@ -34,26 +35,26 @@ jQuery(function() {
       var dim = GetTiles();
 
       var amt = dim.x * dim.y;
-
+      
       var test = extractData(index * amt, amt);
 
       var tiles = d3.select("svg").selectAll("image")
           .data(test, function(d) { return parseInt(d.date.uts); });
-      //debugger;
+      
       if (dir == 0) {
           tiles.enter().append("image")
               .attr("class", "enter")
-              .attr("x", function (_, i) { console.log("alkjshd"); return Math.floor(i / dim.y) * tileSize; })
+              .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
               .attr("y", function (_, i) { return  (i % dim.y) * tileSize; })
               .attr("width", tileSize)
               .attr("height", tileSize)
-              .attr("xlink:href", function (d) { return d.image[2]["#text"]; });
+              .attr("xlink:href", function (d) { return d.image[2]["content"]; });
       }
       else {        
           canScroll = false;
           tiles.enter().append("image")
                   .attr("class", "enter")            
-                  .attr("x", function (_, i) { console.log('asdlfjasdf'); return Math.floor(i / dim.y) * tileSize - width * dir; })
+                  .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - width * dir; })
                   .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
                   .attr("width", tileSize)
                   .attr("height", tileSize)
@@ -71,7 +72,6 @@ jQuery(function() {
   }
 
   function extractData(pos, amt) {
-      console.log('ouch')
       return data.slice(pos, pos + amt);
   }
 });
