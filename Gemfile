@@ -25,7 +25,9 @@ gem 'jquery-rails'
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
-gem "lastfm", :path => 'vendor/gems/ruby-lastfm'
+gem "lastfm"
+gem "rdio_api", :path => 'vendor/gems/rdio_api'
+gem "omniauth-rdio"
 
 group :development do
   gem 'thin'
