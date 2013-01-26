@@ -159,10 +159,6 @@ jQuery(function() {
     $("#modal-name").html(d['name'])
     $("#modal-album").html(d['album']['content'])
     $("#modal-artist").html(d['artist']['content'])
-    // console.log(d['image'][2]['content'])
-    // console.log(d['album']['content'])
-    // console.log(d['artist']['content'])
-    // console.log(d['name'])
   }
 
   function GetTiles() {
