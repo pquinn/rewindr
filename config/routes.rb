@@ -1,6 +1,13 @@
 Rewindr::Application.routes.draw do
+  get "sessions/create"
+
+  get "sessions/destroy"
+
+  resources :albums, :only => :index
   resources :tracks, :only => :index
+  
   root to: "main#index"
+  match 'auth/rdio/callback', to: 'sessions#create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

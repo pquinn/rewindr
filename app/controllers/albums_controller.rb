@@ -1,4 +1,4 @@
-class TracksController < ApplicationController
+class AlbumsController < ApplicationController
   respond_to :json
   
   def index
