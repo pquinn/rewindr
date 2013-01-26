@@ -19,12 +19,6 @@ class TracksController < ApplicationController
   private
   
   def lastfm
-    @lastfm ||= LASTFM.user.get_recent_tracks(
-                  :user  => params[:user_name], 
-                  :from  => params[:from] || 365.days.ago.to_i,
-                  :to    => params[:to]   || 364.days.ago.to_i,
-                  :page  => params[:page],
-                  :limit => params[:limit]
-                )
+    @lastfm ||= LastfmHelper.get_recent_tracks(params).shuffle.take(10)
   end
 end

@@ -59,9 +59,6 @@ jQuery(function() {
     var tiles = d3.select("svg").selectAll("image")
         .data(data, function(d) { return parseInt(d.date.uts); });
         
-    console.log(data);
-    console.log(tiles);
-        
     canScroll = false;
     tiles.enter().append("image")
       .attr("class", "enter")            
@@ -89,6 +86,4 @@ jQuery(function() {
       "y": Math.floor(height / tileSize) 
     };
   }
-  
-  function()
 });
