@@ -1,5 +1,5 @@
 jQuery(function() {  
-  var width = $("#canvas").width();
+  var width  = $("#canvas").width();
   var height = $("#canvas").height();
   var xTiles = 10;
   var tileSize =  width / xTiles;
@@ -11,8 +11,6 @@ jQuery(function() {
   var canScroll = true;
 
   var data = gon.track_data;
-  // alert(data);
-  // var data
 
   $(".scroll-hover").hover(
     function () {
@@ -25,53 +23,52 @@ jQuery(function() {
   DrawTiles(0);
 
   function GetTiles() {
-      return {
-          "x": xTiles,
-          "y": Math.floor(height / tileSize) 
-      };
+    return {
+      "x": xTiles,
+      "y": Math.floor(height / tileSize) 
+    };
   }
 
-  function DrawTiles(dir) {
-      var dim = GetTiles();
+  function DrawTiles(direction) {
+      var dimensions = GetTiles();
 
-      var amt = dim.x * dim.y;
+      var number_of_tiles_per_page = dimensions.x * dimensions.y;
       
-      var test = extractData(index * amt, amt);
+      var current_data_slice = data.slice(index * number_of_tiles_per_page, (index + 1) * number_of_tiles_per_page);
 
       var tiles = d3.select("svg").selectAll("image")
-          .data(test, function(d) { return parseInt(d.date.uts); });
+          .data(current_data_slice, function(d) { return parseInt(d.date.uts); });
       
-      if (dir == 0) {
-          tiles.enter().append("image")
-              .attr("class", "enter")
-              .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
-              .attr("y", function (_, i) { return  (i % dim.y) * tileSize; })
-              .attr("width", tileSize)
-              .attr("height", tileSize)
-              .attr("xlink:href", function (d) { return d.image[2]["content"]; });
+      // avoids animation at start
+      if (direction == 0) {
+        tiles.enter().append("image")
+          .attr("class", "enter")
+          .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize; })
+          .attr("y", function (_, i) { return  (i % dimensions.y) * tileSize; })
+          .attr("width", tileSize)
+          .attr("height", tileSize)
+          .attr("xlink:href", function (d) { return d.image[2]["content"]; });
       }
       else {        
-          canScroll = false;
-          tiles.enter().append("image")
-                  .attr("class", "enter")            
-                  .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize - width * dir; })
-                  .attr("y", function (_, i) { return (i % dim.y) * tileSize; })
-                  .attr("width", tileSize)
-                  .attr("height", tileSize)
-                  .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
-              .transition().duration(2000)
-                  .attr("x", function (_, i) { return Math.floor(i / dim.y) * tileSize; })
-                  .each("end", function() { canScroll = true; });
+        canScroll = false;
+        tiles.enter().append("image")
+          .attr("class", "enter")            
+          .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize - width * direction; })
+          .attr("y", function (_, i) { return (i % dimensions.y) * tileSize; })
+          .attr("width", tileSize)
+          .attr("height", tileSize)
+          .attr("xlink:href", function (d) { return d.image[2]["#text"]; })
+          
+          .transition().duration(2000)
+          
+          .attr("x", function (_, i) { return Math.floor(i / dimensions.y) * tileSize; })
+          .each("end", function() { canScroll = true; });
 
-          tiles.exit()
-                  .attr("class", "exit")
-              .transition().duration(2000)
-                  .attr("x", function(d, i) { return Math.floor(i / dim.y) * tileSize + width * dir; })
-                  .remove();
+        tiles.exit()
+          .attr("class", "exit")
+          .transition().duration(2000)
+          .attr("x", function(d, i) { return Math.floor(i / dimensions.y) * tileSize + width * direction; })
+          .remove();
       }
-  }
-
-  function extractData(pos, amt) {
-      return data.slice(pos, pos + amt);
   }
 });
