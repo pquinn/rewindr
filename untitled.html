@@ -7,42 +7,20 @@ body {
     background-color: black;
 }
 
-#leftHover {
-    position: absolute;
-    width: 5%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0);
-    z-index: 1;
-}
-
-#rightHover {
-    position: absolute;
-    left: 95%;
-    width: 5%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0);
-    z-index: 1;
-}
-
 .scroll {
     position: absolute;    
-    top: 47.5%;
+    top: 95%;
     width: 50px;
     height: 50px;
-    background-color: #FFFFFF;
     z-index: 1;
 }
 
 #leftScroll {
-    left: 47.5%;
+    left: 2.5%;
 }
 
 #rightScroll {
-    right: 47.5%;
-}
-
-.scroll-hover {
-
+    right: 2.5%;
 }
 
 .tileText {
@@ -67,12 +45,8 @@ tile { }
 <link rel="stylesheet" href="./app/assets/stylesheets/d3-bootstrap-plugins.min.css" type="text/css"></link>
 
 <body>
-    <div id="leftHover" class="scroll-hover">
-        <div id="leftScroll" class="scroll"></div>
-    </div>
-    <div id="rightHover" class="scroll-hover">
-        <div id="rightScroll" class="scroll"></div>
-    </div>
+    <img src="./app/assets/images/arrow_button_left.png" id="leftScroll" class="scroll" />
+    <img src="./app/assets/images/arrow_button_right.png" id="rightScroll" class="scroll"></div>
     <svg id="canvas" class="canvas" width=100% height=100%></svg>
 </body>
 
@@ -94,11 +68,6 @@ var index = 2;
 var canScroll = true;
 
 var data = data();
-
-$(".scroll-hover").hover(
-  function () {
-    $(".scroll").attr("visibility", "visible");
-  });
 
 $("#leftScroll").click(function () { if (canScroll) { index--; DrawTiles(1); } });
 $("#rightScroll").click(function () { if (canScroll) { index++; DrawTiles(-1); } });
