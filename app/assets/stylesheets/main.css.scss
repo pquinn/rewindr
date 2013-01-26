@@ -95,6 +95,42 @@ div .popover-content{
     padding-top: 0px;
 }
 
+.modal div
+{
+  border: none;
+  border-bottom: none;
+  border-bottom-style: none;
+}
+
+.modal ul
+{
+  list-style-type: none;
+  vertical-align: bottom;
+  margin-left: 0px;
+}
+
+.statistics ul
+{
+  font-size: 12px;
+  margin-left: 0px;
+}
+
+.modal li
+{
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.break hr
+{
+  padding: 5px 0 5px 0;
+}
+
+.modal-header div
+{
+  background-color: #fff;
+}
+
 tile { }
 
 tile { }
