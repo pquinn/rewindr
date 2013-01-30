@@ -12,18 +12,5 @@ class LastfmHelper
                ) || []
     rescue Lastfm::ApiError
     end
-                             
-    LastfmHelper.fix_duplicate_listens(tracks)
-  end
-  
-  def self.fix_duplicate_listens(tracks)
-    previous_time = ""
-    tracks.each do |track|
-      if track["date"]["uts"] == previous_time
-        track["date"]["uts"] = (track["date"]["uts"].to_i + 1).to_s
-      end
-      previous_time = track["date"]["uts"]
-    end
-    tracks
   end
 end

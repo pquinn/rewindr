@@ -8,6 +8,11 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
   },
 
   render: function() {
+    if (this.collection.models.length === 10) {
+      $(this.el).children().children().append("<div>no songs</div>");
+      return this;
+    }
+    
     var months = {
       0: "January",
       1 : "February",
@@ -26,7 +31,6 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
     var dateString = months[date.getMonth()] + " " + date.getDate() + ", " + (date.getFullYear() - 1);
 
     $(this.el).html(this.template({"dateString" : dateString}));
-    //$(this.el).html(this.template);
     var self = this;
     this.collection.each(function(model) {
       var view = new Rewindr.Views.TrackListItem({"model" : model});
@@ -42,5 +46,5 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
     }
   	return this;
   },
-
+  
 });

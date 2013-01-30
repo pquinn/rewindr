@@ -1,6 +1,6 @@
 class TracksController < ApplicationController  
   def index    
-    respond_to do |format|
+    respond_to do |format|      
       format.json { render :json => lastfm }
     end
   end
