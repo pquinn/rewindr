@@ -30,6 +30,8 @@ gem "omniauth-rdio"
 gem "gon"
 
 group :development do
+  gem 'better_errors'
+  gem "binding_of_caller"
   gem 'thin'
 end
 
