@@ -7,50 +7,6 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
     this.userName = this.options["user"];
   },
 
-  pageCount: 2,
-
-  clickHandler: function(self) {
-    debugger;
-      // remove the button
-      $("#show-more").remove();
-
-        // fetch the collection
-
-
-
-         self.collection.fetch({
-          "data" : {"user_name" : self.userName, "page" : self.pageCount, "update" : true},
-          "success" : function(collection, response, options) {
-            debugger;
-
-            collection.each(function(model) {
-              var view = new Rewindr.Views.TrackListItem({"model" : model});
-              var el = view.render().el;
-              $(self.el).children().children().append(el);
-              $(self.el).children().children().append($("<hr>"));
-            });
-
-            var button = $("<button id='show-more' class='btn' type='button'>Show more</button>");
-
-            if(self.collection.models.length === 10) {
-              button.click(function() {self.clickHandler(self)});
-              $(self.el).children().children().append(button);
-              self.pageCount++;
-            } else {
-              $(self.el).children().children().append("You're done, kid")
-            }
-
-            //var view = new Rewindr.Views.TracksIndex({"tracks" : collection});
-            //debugger;
-            //var rendered = view.render().el;
-            //$('#container').append(rendered);
-        },
-        "error" : function() {
-          $("container").html("There was an error.")
-        }
-    });
-      },
-
   render: function() {
     var months = {
       0: "January",
