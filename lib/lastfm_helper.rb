@@ -11,7 +11,6 @@ class LastfmHelper
                  :limit => options[:limit] || 200
                ) || []
     rescue Lastfm::ApiError
-      return []
     end
                              
     LastfmHelper.fix_duplicate_listens(tracks)

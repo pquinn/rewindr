@@ -36,10 +36,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
-  config.before(:each) do
-    stub_request(:get, /http:\/\/ws.audioscrobbler.com\/2.0\/\?api_key=[\d\w]{32}&from=\d{10}&method=user.getRecentTracks&to=\d{10}&user=[\d\w]+/).to_return(:status => 200, :body => fixture_io('user.getrecenttracks.xml'), :headers => {})
-  end
 end
 
 def fixture_io(name)

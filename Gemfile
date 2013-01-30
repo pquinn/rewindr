@@ -21,13 +21,13 @@ group :assets do
 end
 
 gem 'backbone-on-rails'
-gem 'jquery-rails'
-gem "therubyracer"
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
-gem "lastfm"
-gem "omniauth-rdio"
 gem "gon"
+gem 'jquery-rails'
+gem "lastfm"
+gem "less-rails"
+gem "omniauth-rdio"
+gem "therubyracer"
+gem "twitter-bootstrap-rails"
 
 group :development do
   gem 'better_errors'
