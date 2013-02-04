@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+	
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="Author" content="Apple Inc." />
+	<meta name="viewport" content="width=1024" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7, IE=9" />
+	<link id="globalheader-stylesheet" rel="stylesheet" href="http://images.apple.com/global/nav/styles/navigation.css" type="text/css" />
+
+	<title>Apple - iPhone 5 - The thinnest, lightest, fastest iPhone ever.</title>
+	<meta name="omni_page" content="iPhone - Index/Tab" />
+	<meta name="Description" content="It’s so thin and so light, yet iPhone 5 features a larger display, a faster chip, the latest wireless technology, an 8MP iSight camera, and more." />
+	<link rel="stylesheet" href="http://images.apple.com/global/styles/base.css" type="text/css" />
+	<link rel="stylesheet" href="http://images.apple.com/v/iphone/c/styles/iphone.css" type="text/css" />
+	<link rel="stylesheet" href="http://images.apple.com/iphone/styles/iphone.css" type="text/css" />
+	<link rel="stylesheet" href="http://images.apple.com/v/iphone/home/d/styles/home.css" type="text/css" />
+	<link rel="stylesheet" href="http://images.apple.com/iphone/home/styles/home.css" type="text/css" />
+	<script src="http://images.apple.com/global/scripts/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/scripts/lib/scriptaculous.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/scripts/lib/sizzle.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/scripts/browserdetect.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/scripts/apple_core.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/scripts/search_decorator.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/ac_base/ac_base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://images.apple.com/global/ac_retina/ac_retina.js" type="text/javascript" charset="utf-8"></script>
+
+	
+<script src="http://images.apple.com/global/scripts/lib/event_mixins.js" charset="utf-8"></script>
+<script src="http://images.apple.com/global/scripts/swap_view.js" charset="utf-8"></script>
+<script src="http://images.apple.com/global/scripts/view_master_tracker.js" charset="utf-8"></script>
+<script src="http://images.apple.com/global/scripts/ac_autogallery.js" charset="utf-8"></script>
+
+
+	
+
+
+<script src="http://images.apple.com/global/scripts/ac_media.js" charset="utf-8"></script>
+<script>
+
+ACUtils.platterFixes = {
+	isIE8: function () {
+		var match = navigator.userAgent.toLowerCase().match(/msie\D*([\.\d]*)/i);
+		return (match && match[1] && (parseInt(match[1]) <= 8));
+	}
+}
+
+Media.ControlsWidget.prototype._positionSettingsMenuForControl = Media.ControlsWidget.prototype.positionSettingsMenuForControl;
+Media.ControlsWidget.prototype.positionSettingsMenuForControl = function(control) {
+	var correction = ((document.viewport.getDimensions().width - document.body.offsetWidth));
+	this._positionSettingsMenuForControl(control);
+	this.settingsMenu.style.left = (parseInt(this.settingsMenu.style.left) - correction / 2) + 'px';
+}
+
+if (!ACUtils.platterFixes.isIE8()) {
+	ACUtils._cumulativeOffset = ACUtils.cumulativeOffset;
+	ACUtils.cumulativeOffset = function(element) {
+		var offset = ACUtils._cumulativeOffset(element);
+		
+		// if we're in a platter, compensate for the width set on the body
+		offset[0] += ((document.viewport.getDimensions().width - document.body.offsetWidth) / 2);
+		offset.left = offset[0];
+		return offset;
+	}
+}
+
+</script>
+<link rel="stylesheet" href="http://images.apple.com/global/styles/ac_media.css" />
+
+
+	<script src="http://images.apple.com/v/iphone/home/d/scripts/overview.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Event.onDOMReady(function () {
+			if (AC.Detector.isCSSAvailable('background-size')) {
+				if (AC.Environment.Browser.os === 'iOS' && window.parseFloat(AC.Environment.Browser.version, 10) <= 5) {
+					Element.addClassName(document.body, 'fallback');
+				} else {
+					Element.addClassName(document.body, 'responsive');
+				}
+			} else {
+				Element.addClassName(document.body, 'fallback');
+			}
+
+			window.setTimeout(function () {
+				var galleryHeroVideos = new NestedVideoViewer('gallery-hero-videos', 'hero-gallery');
+			}, 20);
+		});
+	</script>
+</head>
+<body class="iphone overview" id="overview">
+	<script type="text/javascript">
+	var searchSection = 'iphone';
+	var searchCountry = 'us';
+</script>
+<script src="http://images.apple.com/global/nav/scripts/globalnav.js" type="text/javascript" charset="utf-8"></script>
+<nav id="globalheader" class="iphone">
+	<!--googleoff: all-->
+	<ul id="globalnav" role="navigation">
+		<li id="gn-apple"><a href="/"><span>Apple</span></a></li>
+		<li id="gn-store"><a href="http://store.apple.com/"><span>Store</span></a></li>
+		<li id="gn-mac"><a href="/mac/"><span>Mac</span></a></li>
+		<li id="gn-ipod"><a href="/ipod/"><span>iPod</span></a></li>
+		<li id="gn-iphone"><a href="/iphone/"><span>iPhone</span></a></li>
+		<li id="gn-ipad"><a href="/ipad/"><span>iPad</span></a></li>
+		<li id="gn-itunes"><a href="/itunes/"><span>iTunes</span></a></li>
+		<li id="gn-support" class="gn-last"><a href="/support/"><span>Support</span></a></li>
+	</ul>
+	<!--googleon: all-->
+	<div id="globalsearch">
+		<form action="/search/" method="post" class="search" id="g-search"><div class="sp-label">
+			<label for="sp-searchtext">Search</label>
+			<input type="text" name="q" id="sp-searchtext" accesskey="s" />
+		</div></form>
+		<div id="sp-magnify"><div class="magnify-searchmode"></div><div class="magnify"></div></div>
+		<div id="sp-results"></div>
+	</div>
+</nav>
+<script type="text/javascript">
+	AC.GlobalNav.Instance = new AC.GlobalNav();
+</script>
+
+	<div id="top">
+<!-- SiteCatalyst code version: H.8. Copyright 1997-2006 Omniture, Inc. -->
+
+
+	
+
+
+
+
+	
+
+
+<script type="text/javascript">
+/* RSID: */
+
+var s_account="appleglobal,appleusip"
+
+</script>
+
+
+<script type="text/javascript" src="http://images.apple.com/metrics/scripts/s_code_h.js"></script>
+  
+
+<script type="text/javascript">
+/* Browser Height and Device Type */
+if((s.pageName=AC.Tracking.pageName()) ==='iphone - index/tab') {
+var platform = '';
+
+if (s.u.match(/(kindle|silk-accelerated|android|webos|rim tablet os|windows phone)/i)) {
+	platform = 'mobile other';
+} else if (s.u.match(/windows/i)) {
+	platform = 'windows';
+}else if (s.u.match(/(iphone|ipod)/i)) {
+	platform = 'iphone/ipod touch';
+} else if (s.u.match(/(ipad)/i)) {
+	platform = 'ipad';
+}else if (s.u.match(/Mac OS X/i)){
+		platform = 'Mac';
+} else {
+	platform = 'other';
+}
+s.eVar44=window.innerHeight;
+s.eVar43=platform;
+}
+</script>
+
+<script type="text/javascript">
+
+s.pageName=AC.Tracking.pageName()+" (us)";
+s.channel="www.us.ip"
+
+
+
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)</script>
+<!-- End SiteCatalyst code version: H.8. -->
+</div>
+	<nav id="productheader" data-hires="true">
+	<h2><a href="/iphone/"><img src="http://images.apple.com/iphone/images/product_title.png" alt="iPhone" width="95" height="29" /></a></h2>
+	<ul>
+		<li id="pn-features"><a href="/iphone/features/">Features</a></li>
+		<li id="pn-design"><a href="/iphone/design/">Design</a></li>
+		<li id="pn-built-in-apps"><a href="/iphone/built-in-apps/">Built-in Apps</a></li>
+		<li id="pn-from-the-app-store"><a href="/iphone/from-the-app-store/">From the App Store</a></li>
+		<li id="pn-ios"><a href="/iphone/ios/">iOS</a></li>
+		<li id="pn-icloud"><a href="/iphone/icloud">iCloud</a></li>
+		<li id="pn-specs"><a href="/iphone/specs.html">Tech Specs</a></li>
+	
+	
+		<li><a class="buynows" href="http://store.apple.com/go/iphone">Buy iPhone 5 Now</a></li>
+	
+	</ul>
+</nav>
+
+	<div id="main">
+		<div class="content" id="content" data-hires="true">
+			<div class="autogallery autogallery-slide-directional autogallery-slideshow-hero gallery flushleft flushright" data-hires="false" id="gallery-hero-videos">
+				<div id="gallery-hero-videos-default" class="gallery-hero-videos-default">
+					<div class="gallery-view" id="hero-gallery">
+						
+						<figure class="gallery-content gallery-hero" id="gallery-hero">
+							<div class="image"></div>
+							<h1 class="title">iPhone 5. The biggest thing to happen to iPhone since iPhone.</h1>
+						</figure>
+						
+						<figure class="gallery-content gallery-design" id="gallery-design">
+							<div class="image"></div>
+							<h1 class="title">Thinner, lighter design. So much more than before. And so much less, too.</h1>
+						</figure>
+						<figure class="gallery-content gallery-display" id="gallery-display">
+							<div class="image"></div>
+							<h1 class="title">4-inch Retina display. It’s not just bigger. It’s just right.</h1>
+						</figure>
+						<figure class="gallery-content gallery-wireless" id="gallery-wireless">
+							<div class="image"></div>
+							<h1 class="title">Ultrafast wireless. Browse, download, and stream content at blazing-fast speeds.</h1>
+						</figure>
+						<figure class="gallery-content gallery-a6" id="gallery-a6">
+							<div class="image"></div>
+							<h1 class="title">A6 chip. Performance and graphics up to twice as fast.</h1>
+						</figure>
+						<figure class="gallery-content gallery-camera" id="gallery-camera">
+							<div class="image"></div>
+							<h1 class="title">iSight camera. The camera you love now shoots in panorama.</h1>
+						</figure>
+						<figure class="gallery-content gallery-ios" id="gallery-ios">
+							<div class="image"></div>
+							<h1 class="title">iOS 6. The world’s most advanced mobile operating system.</h1>
+						</figure>
+					</div>
+					<nav class="paddle-nav">
+						<ul>
+							<li><a class="arrow prev hero-gallery" href="#previous"><b>Previous</b></a></li>
+							<li><a class="arrow next hero-gallery" href="#next"><b>Next</b></a></li>
+						</ul>
+					</nav>
+					<nav class="dot-nav"><ul><li>
+						<a class="hero-gallery" href="#gallery-hero">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-design">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-display">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-wireless">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-a6">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-camera">Gallery: iPhone 5</a></li><li>
+						<a class="hero-gallery" href="#gallery-ios">Gallery: iPhone 5</a></li>
+					</ul></nav>
+				</div><!--/gallery-hero-videos-default-->
+			</div><!--/gallery-->
+
+			<section id="videos" class="row gradient-down">
+				<div class="flushpad grid2col gradient-up">
+					<ul class="videos"><li>
+							
+
+							
+							<a href="/apple-events/september-2012/" class="video-thumb block">
+								<i class="round">
+									<span class="play"></span>
+									<img src="http://images.apple.com/v/iphone/home/d/images/video_thumb_keynote.jpg" alt="" width="225" height="128" />
+									<span class="link">Watch the iPhone 5 keynote</span>
+								</i>
+							</a>
+						</li><li>
+							<a href="/iphone/home/includes/video.html#video" class="gallery-hero-videos video-thumb block">
+								<i class="round">
+									<span class="play"></span>
+									<img src="http://images.apple.com/iphone/home/images/video_thumb_iphone.jpg" alt="" width="225" height="128" />
+									<span class="link darklink">Watch the iPhone 5 video</span>
+								</i>
+							</a>
+						</li><li>
+							<a href="/iphone/videos/#tv-ads-dream" class="video-thumb block">
+								<i class="round">
+									<span class="play"></span>
+									<img src="http://images.apple.com/iphone/home/images/video_thumb_ad.jpg" alt="" width="225" height="128" />
+									<span class="link">Watch the TV ads</span>
+								</i>
+							</a>
+						</li><li>
+							<a href="/iphone/home/includes/launch.html#launch" class="gallery-hero-videos video-thumb block">
+								<i class="round">
+									<span class="play"></span>
+									<img src="http://images.apple.com/iphone/home/images/video_thumb_launch.jpg" alt="" width="225" height="128" />
+									<span class="link">Watch the Launch Day video</span>
+								</i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section><!--/videos-->
+
+			<section id="design" class="row">
+				<a class="block flushpad selfclear" href="/iphone/design/">
+					<article class="bucket-copy">
+						<h1><img class="center" src="http://images.apple.com/iphone/home/images/design_title.png" width="233" height="41" alt="All-new design." /></h1>
+						<p>It doesn’t seem possible. That an iPhone with so much — a larger display, a faster chip, ultrafast wireless technology, an 8MP iSight camera — could be so thin and so light. But it is. In fact, iPhone 5 is the thinnest and lightest iPhone ever.</p>
+						<span class="more">Learn more about the design of iPhone 5</span>
+					</article>
+					<img class="right flushright" src="http://images.apple.com/iphone/home/images/design_hero.jpg" width="519" height="612" alt="" />
+				</a>
+			</section><!--/design-->
+
+			<section id="display" class="row gradient-down">
+				<a class="block flushpad selfclear gradient-up" href="/iphone/features/">
+					<article class="bucket-copy">
+						<h1><img class="center" src="http://images.apple.com/iphone/home/images/display_title.png" width="432" height="41" alt="Brilliant 4-inch Retina display." /></h1>
+						<p>The 4-inch Retina display lets you see more of everything. And everything you see is vivid and lifelike. It’s a larger, more beautiful canvas made the right way. Because even though the display is bigger, iPhone 5 is the same width as iPhone 4S. So it’s just as easy to use with one hand.</p>
+						<span class="more">Learn more about the features of iPhone 5</span>
+					</article>
+					<img class="left" src="http://images.apple.com/iphone/home/images/display_hero.png" width="418" height="453" alt="" />
+				</a>
+			</section><!--/display-->
+
+			<section id="wireless" class="row">
+				<a class="block flushpad selfclear" href="/iphone/features/">
+					<article class="bucket-copy">
+						<h1><img class="center" src="http://images.apple.com/iphone/home/images/wireless_title.png" width="254" height="41" alt="Ultrafast wireless." /></h1>
+						<p>With support for the latest wireless technologies, iPhone 5 connects to more networks all over the world.* And Wi-Fi is faster, too. So you can browse, download, and stream content at remarkable speeds, wherever you happen to be.</p>
+						<span class="more">Learn more about the features of iPhone 5</span>
+					</article>
+					<img class="right" src="http://images.apple.com/iphone/home/images/wireless_hero.jpg" width="424" height="366" alt="" />
+				</a>
+			</section><!--/wireless-->
+
+			<section id="a6" class="row gradient-down">
+				<a class="block flushpad selfclear gradient-divider-up" href="/iphone/features/">
+					<article class="bucket-copy">
+						<h1><img class="center" src="http://images.apple.com/iphone/home/images/a6_title.png" width="266" height="41" alt="Powerful A6 chip." /></h1>
+						<p>The all-new Apple-designed A6 chip in iPhone 5 is powerful but not power hungry. CPU performance and graphics performance are up to twice as fast as on the A5 chip. But even with all that speed, iPhone 5 gives you outstanding battery life.</p>
+						<span class="more">Learn more about the features of iPhone 5</span>
+					</article>
+					<img class="left" src="http://images.apple.com/iphone/home/images/a6_hero.png" width="501" height="327" alt="" />
+				</a>
+			</section><!--/a6-->
+
+			<aside id="buystrip" class="relative selfclear">
+	<ul class="grid4col">
+		<li class="block column first">
+			<a href="/iphone/compare-iphones/">
+				<h2>
+					<img src="http://images.apple.com/iphone/images/buystrip_compare_title.png" alt="iPhone 5. From $199." width="143" height="60" class="center block" />
+					<img src="http://images.apple.com/iphone/images/buystrip_compare.jpg" alt="" width="110" height="125" class="center block" />
+				</h2>
+				<em class="more cta">Compare iPhone models</em>
+				<p class="sosumi">*Qualified customers only.</p>
+			</a>
+		</li><!--/column first-->
+
+
+		
+
+<li class="block column">
+			<a href="http://store.apple.com/go/iphone">
+				<h2><img src="http://images.apple.com/iphone/images/buystrip_aos.png" alt="Shop Online" width="127" height="104" class="center" /></h2>
+				<p>Order your iPhone online and get it delivered to your door. It ships free and ready to use.</p>
+				<em class="more cta">Buy iPhone 5</em>
+			</a>
+		</li><!--/column-->
+
+		<li class="block column">
+			<a href="/retail/iphone/">
+				<h2><img src="http://images.apple.com/iphone/images/buystrip_retail.png" alt="Visit a store." width="123" height="104" class="center" /></h2>
+				<p>Buy iPhone at the Apple Retail Store and we’ll activate it and set it up just the way you want.</p>
+				<em class="more cta">Find a store</em>
+			</a>
+		</li><!--/column-->
+
+		<li class="column last">
+			<h2><img src="http://images.apple.com/iphone/images/buystrip_phone.png" alt="Call Apple." width="108" height="104" class="center" /></h2>
+			<p>Get answers about iPhone and rate plans before you buy. Talk with a knowledgeable Specialist.</p>
+			<em class="cta">1-800-MY-APPLE</em>
+		</li><!--/column last-->
+	</ul>
+
+	
+
+
+
+
+<div class="gradient">
+		<a href="http://itunes.apple.com/us/app/apple-store/id375380948?mt=8" class="block app-store">
+			<img class="left" src="http://images.apple.com/iphone/images/buystrip_applestoreapp_icon.png" alt="" width="34" height="34" />
+			<p>Use the Apple Store app to shop, make appointments, and more. <em class="more">Download now</em></p>
+		</a>
+	</div><!--/grid2col-->
+</aside><!--/buystrip-->
+
+		</div><!--/content-->
+	</div><!--/main-->
+	
+	<div class="sosumi">
+		<ul>
+			<li>*Compared with iPhone 4S.</li>
+			<li>Some features may not be available for all countries or all areas. <a href="/ios/feature-availability/">Click here to see complete list.</a></li>
+			<li>Some features, applications, and services are not available in all areas. See your carrier for details. Application availability and pricing are subject to change.</li>
+			<li> LTE is available in select markets and through select carriers. Check with your carrier for details.</li>
+			<li>The Transamerica Pyramid Building is a registered service mark of Transamerica Corporation.</li>
+		</ul>
+	</div>
+
+	<footer id="globalfooter">
+		<div id="breadory">
+			<ol id="breadcrumbs">
+				<li class="home"><a href="/">Home</a></li>
+				<li>iPhone</li>
+			</ol>
+			<!--googleoff: all-->
+<div id="directorynav" class="iphone">
+	<div id="dn-cola" class="column first">
+		<h3>About iPhone 5</h3>
+		<ul>
+			<li><a href="/iphone/features/">Features</a></li>
+			<li><a href="/iphone/design/">Design</a></li>
+			<li><a href="/iphone/built-in-apps/">Built-in Apps</a></li>
+			<li><a href="/iphone/from-the-app-store/">From the App Store</a></li>
+			<li><a href="/iphone/ios/">iOS</a></li>
+			<li><a href="/iphone/icloud/">iCloud</a></li>
+			<li><a href="/iphone/specs.html">Tech Specs</a></li>
+		</ul>
+	</div>
+	<div id="dn-colb" class="column">
+		<h3>More iPhone</h3>
+		<ul>
+			<li><a href="/iphone/iphone-4s/specs.html">iPhone 4S Tech Specs</a></li>
+			<li><a href="/iphone/iphone-4/specs.html">iPhone 4 Tech Specs</a></li>
+			<li><a href="/iphone/compare-iphones/">Compare iPhone models</a></li>
+			<li><a href="/iphone/iphone-5/tips/">Tips and Tricks</a></li>
+			<li><a href="/education/ipodtouch-iphone/">iPhone in Education</a></li>
+			<li><a href="/students/ipodtouch-iphone/">iPhone for Students</a></li>
+			<li><a href="http://developer.apple.com/programs/ios/">iOS for Developers</a></li>
+			<li><a href="/accessibility/iphone/vision.html">Accessibility</a></li>
+			<li><a href="/product-red/">(PRODUCT) RED</a></li>
+		</ul>
+	</div>
+	<div id="dn-colc" class="column">
+		<h3>iPhone in Business</h3>
+		<ul>
+			<li><a href="/iphone/business/">Overview</a></li>
+			<li><a href="/iphone/business/apps/">Apps</a></li>
+			<li><a href="/iphone/business/ios/">iOS</a></li>
+			<li><a href="/iphone/business/it-center/">IT Center</a></li>
+			<li><a href="/iphone/business/profiles/">Profiles</a></li>
+			<li><a href="/iphone/business/get-started/">Get Started</a></li>
+		</ul>
+	</div>
+	<div id="dn-cold" class="column">
+		<h3>Support</h3>
+		<ul>
+			<li><a href="/iphone/buy/">Where to buy iPhone</a></li>
+			<li><a href="/support/iphone/">Online Support</a></li>
+			<li><a href="http://discussions.apple.com/category.jspa?categoryID=201">iPhone Discussions</a></li>
+			<li><a href="http://support.apple.com/manuals/#iphone">User Guide (PDF)</a></li>
+			<li><a href="/retail/learn/">Workshops</a></li>
+			<li><a href="/retail/learn/one-to-one/">One to One</a></li>
+		</ul>
+	</div>
+	<div class="capbottom"></div>
+</div> 
+<!--googleon: all-->
+		</div><!--/breadory-->
+		<p class="gf-buy">Shop the <a href="http://store.apple.com/us">Apple Online Store</a> (1-800-MY-APPLE), visit an <a href="/retail/">Apple Retail Store</a>, or find a <a href="/buy/">reseller</a>.</p>
+
+<ul class="gf-links piped">
+	<li><a href="/about/" class="first">Apple Info</a></li>
+	<li><a href="/sitemap/">Site Map</a></li>
+	<li><a href="/hotnews/">Hot News</a></li>
+	<li><a href="/rss/">RSS Feeds</a></li>
+	<li><a href="/contact/" class="contact_us">Contact Us</a></li>
+	<li><a href="/choose-your-country/" class="choose"><img src="http://images.apple.com/global/elements/flags/22x22/usa.png" alt="Choose your country or region" width="22" height="22" data-hires="true" /></a></li>
+</ul>
+
+<div class="gf-sosumi">
+	<p>Copyright © 2013 Apple Inc. All rights reserved.</p>
+	<ul class="piped">
+		<li><a href="/legal/terms/site.html" class="first">Terms of Use</a></li>
+		<li><a href="/privacy/">Privacy Policy</a></li>
+	</ul>
+</div>
+
+	</footer><!--/globalfooter-->
+</body>
+</html>
