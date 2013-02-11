@@ -1,8 +1,8 @@
-class Echonest
+class Echonest::BaseController < ApplicationController
   BASE_URL = "http://developer.echonest.com/api/v4/"
   DEFAULT_BUCKET_PARAMS = "bucket=tracks&bucket=audio_summary&bucket=id:rdio-US"
   
-  def self.find_first_rdio_song_id_by_artist_and_title(artist, title)
+  def find_first_rdio_song_id_by_artist_and_title(artist, title)
     response = HTTParty.get("#{BASE_URL}song/search?#{DEFAULT_BUCKET_PARAMS}", 
                 :query => {
                   :api_key =>"BWXNT5LWGYPXOT8AA",

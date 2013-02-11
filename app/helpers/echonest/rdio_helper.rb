@@ -1,0 +1,2 @@
+module Echonest::RdioHelper
+end

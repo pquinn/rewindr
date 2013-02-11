@@ -1,11 +1,13 @@
 Rewindr::Application.routes.draw do
-  resources :albums, :only => :index
-  resources :tracks, :only => :index do
-    get :wall, :on => :collection
+
+  namespace :echonest do
+    namespace :rdio do
+      get :search
+    end
   end
-  
-  get "echonest/rdio_song_id"
-  
+  resources :tracks, :only => :show
+  resources :wall,   :only => :show
+
   root to: "main#index"
 
   # The priority is based upon order of creation:

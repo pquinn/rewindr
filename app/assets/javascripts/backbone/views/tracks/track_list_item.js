@@ -27,7 +27,6 @@ Rewindr.Views.TrackListItem = Backbone.View.extend({
           artist: songAndTitle[1]
         },
         success: function(data) {
-          console.log(data)
           $('#api').rdio().play(data.rdio_song_id);
         },
         error: function() {
