@@ -1,4 +1,4 @@
-class WallController < ApplicationController
+class WallsController < ApplicationController
   def show
     respond_to do |format|
       format.html do        
