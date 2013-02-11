@@ -38,16 +38,16 @@ jQuery(function() {
   getTracks(addTilesToWall);
 
   function getTracks(callback) {
-    $.ajax('/tracks', {
+    $.ajax('/playlists/' + gon.user_name, {
       data: {
-        'user_name': gon.user_name,
         'limit': numberOfTilesPerPage,
         'from': from,
         'to': to
       },
       success: callback,
-      error: function() {
-        alert('noo')
+      error: function(error) {
+        console.log(error);
+        alert('noo');
       },
       dataType: 'json'
     });
