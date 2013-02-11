@@ -5,9 +5,7 @@
 // font-family: 'Roboto Condensed', sans-serif;
 
 body {
-  background: url(background.jpg);
-  background-repeat:no-repeat;
-  background-attachment:fixed; 
+  background-color: #fff;
 }
 
 #main 
@@ -57,10 +55,6 @@ body {
 #spinner-location
 {
   display: none;
-}
-
-body {
-    background-color: black;
 }
 
 .scroll {
