@@ -1,4 +1,3 @@
-
 jQuery(function() {
   $("#modal-image").click(function() {    
     $.ajax("/echonest/rdio_song_id", {
@@ -7,7 +6,6 @@ jQuery(function() {
         artist: $("#modal-artist").html()
       },
       success: function(data) {
-        console.log(data)
         $('#api').rdio().play(data.rdio_song_id);
       },
       error: function() {

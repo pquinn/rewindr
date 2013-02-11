@@ -154,7 +154,7 @@ jQuery(function() {
   
   function selectTrack(d, i) {
     $('#test_modal').modal()
-    console.log(d)
+    
     $("#modal-image").attr('src', d['image'][2]['content'])
     $("#modal-name").html(d['name'])
     $("#modal-album").html(d['album']['content'])

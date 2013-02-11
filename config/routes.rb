@@ -1,9 +1,4 @@
 Rewindr::Application.routes.draw do
-  get "junk/show"
-
-  get "sessions/create"
-  get "sessions/destroy"
-
   resources :albums, :only => :index
   resources :tracks, :only => :index do
     get :wall, :on => :collection

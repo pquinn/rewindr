@@ -36,6 +36,8 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  
+  config.render_views
 end
 
 def fixture_io(name)
