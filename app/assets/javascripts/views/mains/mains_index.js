@@ -1,6 +1,6 @@
 Rewindr.Views.MainsIndex = Backbone.View.extend({
 
-  template: JST['mains/index'],
+  template: HoganTemplates['mains/index'],
 
   events: {
   	"submit #user-form" : "handleEnter"
@@ -31,7 +31,7 @@ Rewindr.Views.MainsIndex = Backbone.View.extend({
   	};
   	var date = new Date();
   	var dateString = months[date.getMonth()] + " " + date.getDate() + ", " + (date.getFullYear() - 1);
-    $(this.el).html(this.template({"date" : dateString}));
+    $(this.el).html(this.template.render({"date" : dateString}));
 
     return this;
   }
