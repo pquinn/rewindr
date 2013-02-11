@@ -4,7 +4,7 @@ window.Rewindr = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new Rewindr.Routers.Mains
+    new Rewindr.Routers.Main
     Backbone.history.start()
   }
 };

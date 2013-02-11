@@ -1,6 +1,6 @@
-Rewindr.Views.MainsIndex = Backbone.View.extend({
+Rewindr.Views.MainIndex = Backbone.View.extend({
 
-  template: JST['mains/index'],
+  template: JST['main/index'],
 
   events: {
   	"submit #user-form" : "handleEnter"

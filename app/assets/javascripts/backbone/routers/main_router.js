@@ -1,11 +1,11 @@
-Rewindr.Routers.Mains = Backbone.Router.extend({
+Rewindr.Routers.Main = Backbone.Router.extend({
   routes: {
     '': 'index',
     "playlist/:userName" : "playlist"
   },
 
   index: function() {
-     var view = new Rewindr.Views.MainsIndex()
+     var view = new Rewindr.Views.MainIndex()
      $('#container').html(view.render().el);
      
     // Try to focus the input
