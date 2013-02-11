@@ -11,6 +11,7 @@ class LastfmHelper
                  :limit => options[:limit] || 200
                ) || []
     rescue Lastfm::ApiError
+      tracks
     end
   end
 end
