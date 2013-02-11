@@ -1,4 +1,3 @@
-
 jQuery(function() {
   $("#modal-image").click(function() {    
     $.ajax("/echonest/rdio_song_id", {
