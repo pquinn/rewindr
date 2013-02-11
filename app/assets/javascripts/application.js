@@ -9,7 +9,6 @@
 //
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
-//
 //= require jquery
 //= require jquery_ujs
 //= require jquery.rdio
@@ -17,12 +16,11 @@
 //= require underscore
 //= require backbone
 //= require d3
-
+//= require hogan.js
 //= require rewindr
 //= require spinner_setup
 //= require rdio
 //= require album_wall
-
 //= require_tree ./backbone/templates
 //= require_tree ./backbone/models
 //= require_tree ./backbone/collections

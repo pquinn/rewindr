@@ -1,14 +1,10 @@
 Rewindr.Views.TrackListItem = Backbone.View.extend({
 
-  template: JST['tracks/index'],
+  template: HoganTemplates['tracks/track'],
 
   render: function() {
 
-    var date = new Date(this.model.attributes.date.content);
-    var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-    var dateString = date.getHours() < 12 ?
-      date.getHours() + ":" + minutes + " am":
-      (date.getHours() - 12) + ":" + minutes + " pm";
+    var color = this.options["even-odd"] % 2 == 0 ? "even" : "odd";
 
     var rendered = $(this.template(_.extend(this.model.attributes, {"playedTime": dateString})));
 
@@ -38,6 +34,7 @@ Rewindr.Views.TrackListItem = Backbone.View.extend({
 
     iconStop.click(function() {
     });
+    var rendered = this.template.render(_.extend(this.model.attributes, {"color" : color}));
 
     $(this.el).html(rendered);
     return this;

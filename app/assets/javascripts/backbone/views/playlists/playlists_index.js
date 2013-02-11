@@ -2,7 +2,7 @@ Rewindr.Views.PlaylistView = Backbone.View.extend({
 
   el: "div",
 
-  template: JST['playlist/index'],
+  template: HoganTemplates['playlist/index'],
 
   initialize: function() {
     this.collection = this.options["tracks"];
