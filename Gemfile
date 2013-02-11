@@ -27,12 +27,12 @@ gem "lastfm"
 gem "less-rails"
 gem "omniauth-rdio"
 gem "therubyracer"
+gem 'thin'
 gem "twitter-bootstrap-rails"
 
 group :development do
   gem 'better_errors'
   gem "binding_of_caller"
-  gem 'thin'
 end
 
 group :test, :development do
