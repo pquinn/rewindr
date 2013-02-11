@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TracksController do
+describe PlaylistsController do
   describe 'GET index' do
     it 'returns an array of data representing the users listening history from the past' do
       stub_request(:get, /http:\/\/ws.audioscrobbler.com\/2.0\/\?api_key=[\d\w]{32}&from=\d{10}(&limit=\d+)?&method=user.getRecentTracks&to=\d{10}&user=[\d\w]+/)

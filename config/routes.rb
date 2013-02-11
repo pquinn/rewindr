@@ -5,8 +5,8 @@ Rewindr::Application.routes.draw do
       get :search
     end
   end
-  resources :tracks, :only => :show
-  resources :wall,   :only => :show
+  resources :playlists, :only => :show
+  resources :wall,      :only => :show
 
   root to: "main#index"
 

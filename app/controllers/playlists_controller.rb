@@ -1,4 +1,4 @@
-class TracksController < ApplicationController  
+class PlaylistsController < ApplicationController  
   respond_to :json
   
   def show    
