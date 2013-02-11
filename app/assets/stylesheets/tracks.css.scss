@@ -11,3 +11,42 @@ span#time-info
 {
   color: #ddd;
 }
+
+// new css
+.album-art
+  {
+    height:75px;
+    width:75px;
+  }
+
+  .row
+  {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+    box-shadow: 0 0 4px rgba(0,0,0,.3);
+  }
+
+  .row-top
+  {
+    border-left: 0px solid #d9d9d9;
+    border-right: 0px solid #d9d9d9;
+    box-shadow: 0 0 0px rgba(0,0,0,.3);
+    padding-top: 60px;
+  }
+
+  .even
+  {
+    background-color: #fff;
+  }
+
+  .odd
+  {
+    background-color: #eee;
+  }
+
+  .odd-title
+  {
+
+  }
