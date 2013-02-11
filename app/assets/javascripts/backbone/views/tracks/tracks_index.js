@@ -1,18 +1,13 @@
 Rewindr.Views.TracksIndex = Backbone.View.extend({
 
-  template: HoganTemplates['playlist/index'],
+  template: HoganTemplates['backbone/templates/playlists/index'],
 
   initialize: function() {
-  	this.collection = this.options["tracks"];
+    this.collection = this.options["tracks"];
     this.userName = this.options["user"];
   },
 
   render: function() {
-    if (this.collection.models.length === 10) {
-      $(this.el).children().children().append("<div>no songs</div>");
-      return this;
-    }
-    
     var months = {
       0: "January",
       1 : "February",
@@ -30,21 +25,18 @@ Rewindr.Views.TracksIndex = Backbone.View.extend({
     var date = new Date();
     var dateString = months[date.getMonth()] + " " + date.getDate() + ", " + (date.getFullYear() - 1);
 
-    $(this.el).html(this.template({"dateString" : dateString}));
+    $(this.el).html(this.template.render({"dateString" : dateString}));
     var self = this;
+    var even_odd = 0;
     this.collection.each(function(model) {
-      var view = new Rewindr.Views.TrackListItem({"model" : model});
+      var view = new Rewindr.Views.TrackListItem({"model" : model, "even-odd" : even_odd});
       var el = view.render().el;
-      $(self.el).children().children().append(el);
-      $(self.el).children().children().append($("<hr>"));
+      debugger;
+      $($(self.el).children()[0]).append(el);
+      even_odd++;
     });
 
-    if (this.collection.models.length === 10) {
-      var button = $("<button id='show-more' class='btn' type='button'>Show more</button>");
-      button.click(function() {self.clickHandler(self)});
-      $(this.el).children().children().append(button);
-    }
-  	return this;
+    return this;
   },
-  
+
 });

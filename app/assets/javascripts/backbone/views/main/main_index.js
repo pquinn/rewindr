@@ -1,6 +1,6 @@
 Rewindr.Views.MainIndex = Backbone.View.extend({
 
-  template: HoganTemplates['main/index'],
+  template: HoganTemplates['backbone/templates/main/index'],
 
   events: {
   	"submit #user-form" : "handleEnter"

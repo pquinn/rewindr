@@ -18,6 +18,7 @@
 //= require d3
 //= require hogan.js
 //= require rewindr
+//= require spin
 //= require spinner_setup
 //= require rdio
 //= require album_wall

@@ -18,10 +18,9 @@ Rewindr.Routers.Main = Backbone.Router.extend({
   },
 
   playlist: function(userName) {
-  	var tracks = new Rewindr.Collections.Tracks();
+  	var tracks = new Rewindr.Collections.Tracks({"user" : userName});
 
   	tracks.fetch({
-      "data" : {"user_name" : userName, "page" : 1},
   		"success" : function(collection, response, options) {
   			var view = new Rewindr.Views.TracksIndex({"tracks" : collection, "user" : userName});
   			var rendered = view.render().el;
